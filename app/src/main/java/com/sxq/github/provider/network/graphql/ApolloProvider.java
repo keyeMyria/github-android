@@ -10,10 +10,23 @@ import com.sxq.github.provider.network.OkHttpProvider;
 
 public class ApolloProvider {
 
-    public static ApolloClient getApollo() {
-        return ApolloClient.builder()
-                .serverUrl(BuildConfig.REST_URL)
-                .okHttpClient(OkHttpProvider.provideOkHttpClient())
-                .build();
+    private static ApolloClient INSTANCE = null;
+
+    public static ApolloClient getApolloInstance() {
+        if (INSTANCE == null) {
+            synchronized (ApolloClient.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = ApolloClient.builder()
+                            .serverUrl(BuildConfig.REST_URL)
+                            .okHttpClient(OkHttpProvider.provideOkHttpClient())
+                            .build();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+
+    public static void destroy() {
+        INSTANCE = null;
     }
 }
