@@ -1,6 +1,7 @@
 package com.sxq.github.provider.network;
 
 import com.sxq.github.BuildConfig;
+import com.sxq.github.data.model.login.Login;
 import com.sxq.github.provider.network.interceptor.AuthenticationInterceptor;
 import com.sxq.github.provider.network.interceptor.ContentTypeInterceptor;
 
@@ -21,7 +22,7 @@ public class OkHttpProvider {
             if (BuildConfig.DEBUG) {
                 builder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
             }
-            builder.addInterceptor(new AuthenticationInterceptor(BuildConfig.GITHUB_AUTH_TOKEN));
+            builder.addInterceptor(new AuthenticationInterceptor(Login.getCurrentUser().getToken()));
             builder.addInterceptor(new ContentTypeInterceptor());
             okHttpClient = builder.build();
         }
