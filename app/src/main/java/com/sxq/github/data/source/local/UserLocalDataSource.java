@@ -7,7 +7,7 @@ import com.sxq.github.data.source.interfaze.UserDataSource;
 
 import java.util.List;
 
-import github.GetPinnedReposQuery;
+import github.profile.GetPinnedReposQuery;
 import io.reactivex.Observable;
 
 /**

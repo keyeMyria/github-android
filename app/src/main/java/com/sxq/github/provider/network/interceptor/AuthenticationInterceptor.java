@@ -23,6 +23,7 @@ public class AuthenticationInterceptor implements Interceptor {
         Request originalRequest = chain.request();
         Request.Builder builder = originalRequest.newBuilder();
         builder.addHeader("Authorization", mToken.startsWith("Basic") ? mToken : ("token " + mToken));
+        builder.addHeader("User-Agent", "com.sxq.github");
         return chain.proceed(builder.build());
     }
 }

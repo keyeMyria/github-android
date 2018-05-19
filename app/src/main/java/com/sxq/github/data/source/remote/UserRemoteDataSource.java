@@ -10,7 +10,7 @@ import com.sxq.github.provider.network.graphql.ApolloProvider;
 
 import java.util.List;
 
-import github.GetPinnedReposQuery;
+import github.profile.GetPinnedReposQuery;
 import io.reactivex.Observable;
 
 /**

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.sxq.github.R;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -26,14 +28,22 @@ public class ProfileOverViewFragment extends Fragment {
     @NonNull
     private CompositeDisposable mCompositeDisposable;
 
+    private static final String TAG = ProfileOverViewFragment.class.getSimpleName();
+
+    public static ProfileOverViewFragment newInstance() {
+        Bundle args = new Bundle();
+        ProfileOverViewFragment fragment = new ProfileOverViewFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        View root = inflater.inflate(R.layout.profile_overview, container, false);
         mCompositeDisposable = new CompositeDisposable();
         mViewModel = ProfileOverViewModule.createViewModel();
-
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return root;
     }
 
     @Override

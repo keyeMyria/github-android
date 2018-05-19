@@ -19,11 +19,11 @@ public class OkHttpProvider {
     public static OkHttpClient provideOkHttpClient() {
         if (okHttpClient == null) {
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            builder.addInterceptor(new AuthenticationInterceptor(Login.getCurrentUser().getToken()));
+            builder.addInterceptor(new ContentTypeInterceptor());
             if (BuildConfig.DEBUG) {
                 builder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
             }
-            builder.addInterceptor(new AuthenticationInterceptor(Login.getCurrentUser().getToken()));
-            builder.addInterceptor(new ContentTypeInterceptor());
             okHttpClient = builder.build();
         }
         return okHttpClient;

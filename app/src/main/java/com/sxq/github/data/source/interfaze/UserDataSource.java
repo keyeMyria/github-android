@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import github.GetPinnedReposQuery;
+import github.profile.GetPinnedReposQuery;
 import io.reactivex.Observable;
 
 /**
@@ -14,5 +14,5 @@ import io.reactivex.Observable;
 
 public interface UserDataSource {
 
-    public Observable<List<GetPinnedReposQuery.Node>> getProfileOverViewUiModel(@NonNull String login);
+     Observable<List<GetPinnedReposQuery.Node>> getProfileOverViewUiModel(@NonNull String login);
 }
