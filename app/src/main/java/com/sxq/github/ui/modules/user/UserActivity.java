@@ -66,12 +66,12 @@ public class UserActivity extends AppCompatActivity {
             mLogin = savedInstanceState.getString(TAG_LOGIN);
         }
 
-        if (mViewPager == null){
-            mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        }
         FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(),
                 FragmentPagerAdapterModel.buildForProfile(this, Login.getCurrentUser().getLogin()));
         mViewPager.setAdapter(fragmentPagerAdapter);
+        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        mTabLayout.setupWithViewPager(mViewPager);
         if (savedInstanceState == null) {
             mViewPager.setCurrentItem(0);
         }
@@ -83,6 +83,15 @@ public class UserActivity extends AppCompatActivity {
             }
         });
 
+        mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                hideShowFab(position);
+            }
+        });
+
+        hideShowFab(mViewPager.getCurrentItem());
     }
 
     @Override
@@ -93,6 +102,6 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void hideShowFab(int position) {
-        // TODO
+        mFloatingActionButton.show();
     }
 }
