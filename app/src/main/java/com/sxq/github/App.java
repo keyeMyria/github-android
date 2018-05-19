@@ -2,6 +2,7 @@ package com.sxq.github;
 
 import android.app.Application;
 
+import com.sxq.github.utils.TypeFaceHelper;
 import com.sxq.github.utils.log.CrashHandleTree;
 
 import timber.log.Timber;
@@ -14,6 +15,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        TypeFaceHelper.generateTypeface(this);
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         } else {
