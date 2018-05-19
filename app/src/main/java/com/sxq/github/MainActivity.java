@@ -3,7 +3,9 @@ package com.sxq.github;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.sxq.github.data.model.login.Login;
 import com.sxq.github.ui.modules.profile.overview.ProfileOverViewFragment;
+import com.sxq.github.ui.modules.user.UserActivity;
 import com.sxq.github.utils.ActivityUtil;
 
 /**
@@ -20,8 +22,9 @@ public class MainActivity extends AppCompatActivity {
         ProfileOverViewFragment profileOverViewFragment =
                 (ProfileOverViewFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
         if (profileOverViewFragment == null) {
-            profileOverViewFragment = ProfileOverViewFragment.newInstance();
+            profileOverViewFragment = ProfileOverViewFragment.newInstance(Login.getCurrentUser().getLogin());
             ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), profileOverViewFragment, R.id.contentFrame);
         }
+        UserActivity.startActivity(this, Login.getCurrentUser().getLogin());
     }
 }

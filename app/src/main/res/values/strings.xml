@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Github</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="scroll_behavior" translatable="false">@string/appbar_scrolling_view_behavior</string>
+
+
+    <string name="overview">Overview</string>
+    <string name="feeds" translatable="false">Feeds</string>
+    <string name="repos" translatable="false">Repositories</string>
+    <string name="starred" translatable="false">Starred</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+
 </resources>

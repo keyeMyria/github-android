@@ -23,16 +23,25 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ProfileOverViewFragment extends Fragment {
 
+    private static String TAG_LOGIN = "tag_login";
+
     @NonNull
     private ProfileOverViewViewModel mViewModel;
+
     @NonNull
     private CompositeDisposable mCompositeDisposable;
 
+    @NonNull
+    private String mLogin;
+
     private static final String TAG = ProfileOverViewFragment.class.getSimpleName();
 
-    public static ProfileOverViewFragment newInstance() {
+    public static ProfileOverViewFragment newInstance(String login) {
         Bundle args = new Bundle();
         ProfileOverViewFragment fragment = new ProfileOverViewFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(TAG_LOGIN, login);
+        fragment.setArguments(bundle);
         fragment.setArguments(args);
         return fragment;
     }
@@ -40,7 +49,10 @@ public class ProfileOverViewFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.profile_overview, container, false);
+        View root = inflater.inflate(R.layout.fragment_profile_overview, container, false);
+        if (getArguments() != null) {
+            mLogin = getArguments().getString(TAG_LOGIN);
+        }
         mCompositeDisposable = new CompositeDisposable();
         mViewModel = ProfileOverViewModule.createViewModel();
         return root;
@@ -57,6 +69,7 @@ public class ProfileOverViewFragment extends Fragment {
         unBindViewModel();
         super.onPause();
     }
+
 
     private void bindViewModel() {
         mCompositeDisposable.clear();
