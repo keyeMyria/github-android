@@ -8,6 +8,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.util.TypedValue;
 
 public class ViewHelper {
 
@@ -29,4 +30,11 @@ public class ViewHelper {
         return color;
     }
 
+    public static int toPx(@NonNull Context context, int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, dp, context.getResources().getDisplayMetrics());
+    }
+
+    public static int dpToPx(@NonNull Context context, float dp) {
+        return (int) (dp * context.getResources().getDisplayMetrics().density + 0.5f);
+    }
 }
