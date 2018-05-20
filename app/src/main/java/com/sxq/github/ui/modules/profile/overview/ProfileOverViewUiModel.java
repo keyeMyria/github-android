@@ -17,4 +17,8 @@ public class ProfileOverViewUiModel {
     public ProfileOverViewUiModel(List<GetPinnedReposQuery.Node> pinnedRepositories) {
         this.pinnedRepositories = pinnedRepositories;
     }
+
+    public List<GetPinnedReposQuery.Node> getPinnedRepositories() {
+        return pinnedRepositories;
+    }
 }
