@@ -1,10 +1,13 @@
 package com.sxq.github.utils;
 
+import android.gesture.Prediction;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.common.base.Preconditions;
 
 public class InputHelper {
 
@@ -33,4 +36,8 @@ public class InputHelper {
         return txt == null || isEmpty(txt.getEditText());
     }
 
+
+    public static <T> T checkNotNull(T reference) {
+        return Preconditions.checkNotNull(reference, reference.getClass().getSimpleName() + " can not be null");
+    }
 }

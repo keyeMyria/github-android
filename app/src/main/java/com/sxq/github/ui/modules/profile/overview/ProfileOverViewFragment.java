@@ -14,8 +14,8 @@ import com.sxq.github.R;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Created by shixiaoqiang01 on 2018/5/18.
@@ -31,7 +31,7 @@ public class ProfileOverViewFragment extends Fragment {
     @NonNull
     private CompositeDisposable mCompositeDisposable;
 
-    @NonNull
+    @Nullable
     private String mLogin;
 
     private static final String TAG = ProfileOverViewFragment.class.getSimpleName();
@@ -53,8 +53,11 @@ public class ProfileOverViewFragment extends Fragment {
         if (getArguments() != null) {
             mLogin = getArguments().getString(TAG_LOGIN);
         }
+
+        restoreData(savedInstanceState);
+
         mCompositeDisposable = new CompositeDisposable();
-        mViewModel = ProfileOverViewModule.createViewModel();
+        mViewModel = ProfileOverViewModule.createViewModel(mLogin);
         return root;
     }
 
@@ -70,33 +73,36 @@ public class ProfileOverViewFragment extends Fragment {
         super.onPause();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(TAG_LOGIN, mLogin);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void restoreData(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState == null)
+            return;
+        mLogin = savedInstanceState.getString(TAG_LOGIN);
+    }
 
     private void bindViewModel() {
         mCompositeDisposable.clear();
         Disposable disposable = mViewModel.getUiModel()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<ProfileOverViewUiModel>() {
-                    @Override
-                    public void onNext(ProfileOverViewUiModel profileOverViewUiModel) {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .subscribe(
+                        this::updateUi,
+                        throwable -> Timber.e(throwable));
 
         mCompositeDisposable.add(disposable);
     }
 
     private void unBindViewModel() {
         mCompositeDisposable.clear();
+    }
+
+    private void updateUi(ProfileOverViewUiModel profileOverViewUiModel) {
+
+
     }
 }

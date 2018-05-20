@@ -75,6 +75,8 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.0'
     implementation 'cn.gavinliu.android.lib:ShapedImageView:0.8.3'
 
+
+    compile "com.google.guava:guava:$rootProject.guavaVersion"
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
     compile 'org.ehcache:ehcache:3.4.0'
     compile 'com.apollographql.apollo:apollo-rx2-support:0.4.1'
