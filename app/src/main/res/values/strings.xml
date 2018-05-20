@@ -14,4 +14,9 @@
     <string name="followers">Followers</string>
     <string name="following">Following</string>
 
+    <string name="no_data">No data available</string>
+    <string name="reload">Reload</string>
+
+
+
 </resources>
