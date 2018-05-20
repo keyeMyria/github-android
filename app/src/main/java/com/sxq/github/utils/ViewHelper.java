@@ -1,5 +1,6 @@
 package com.sxq.github.utils;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -9,6 +10,8 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.util.TypedValue;
+
+import com.sxq.github.R;
 
 public class ViewHelper {
 
@@ -28,6 +31,11 @@ public class ViewHelper {
         final int color = typedArray.getColor(0, Color.LTGRAY);
         typedArray.recycle();
         return color;
+    }
+
+    @ColorInt
+    public static int getListDiver(@NonNull Context context){
+        return getColorAttr(context, R.attr.dividerColor);
     }
 
     public static int toPx(@NonNull Context context, int dp) {

@@ -3,13 +3,13 @@ package com.sxq.github.ui.widgets;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 
 import com.sxq.github.R;
 
-import javax.annotation.Nonnull;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -100,7 +100,7 @@ public class StateLayout extends NestedScrollView {
         setEmptyText(getResources().getString(resId));
     }
 
-    public void setEmptyText(@Nonnull String text) {
+    public void setEmptyText(@NonNull String text) {
         this.mEmptyTextValue = text + "\n\n¯\\_(ツ)_/¯";
         mEmptyText.setText(this.mEmptyTextValue);
     }
