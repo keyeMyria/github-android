@@ -6,7 +6,9 @@ query getOrganizations($login: String!) {
     login
     name
     bio
+    websiteUrl
     location
+    company
     followers {
       totalCount
     }

@@ -96,7 +96,7 @@
                         android:orientation="vertical">
 
                         <com.sxq.github.ui.widgets.FontTextView
-                            android:id="@+id/organization"
+                            android:id="@+id/company"
                             style="@style/Base.TextAppearance.AppCompat.Subhead"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
