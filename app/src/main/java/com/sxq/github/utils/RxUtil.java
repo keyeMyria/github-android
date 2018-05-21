@@ -18,7 +18,7 @@ public class RxUtil {
     }
 
 
-    public static <T> Observable<T> safeObserable(@NonNull Observable<T> observable) {
+    public static <T> Observable<T> safeObservable(@NonNull Observable<T> observable) {
         return getObservable(observable)
                 .doOnError(Throwable::printStackTrace);
     }
