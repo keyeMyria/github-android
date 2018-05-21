@@ -3,18 +3,16 @@ package com.sxq.github.ui.modules.profile.overview;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 
 
 import com.sxq.github.R;
 import com.sxq.github.provider.emoji.EmojiParser;
 import com.sxq.github.ui.adapter.ProfileOrganizationsAdapter;
 import com.sxq.github.ui.adapter.ProfilePinnedReposAdapter;
+import com.sxq.github.ui.base.BaseFragment;
 import com.sxq.github.ui.widgets.AvatarLayout;
 import com.sxq.github.ui.widgets.FontButton;
 import com.sxq.github.ui.widgets.FontTextView;
@@ -28,9 +26,7 @@ import com.sxq.github.utils.ParseDateFormat;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import github.profile.GetOrganizationsQuery;
 import github.profile.GetPinnedReposQuery;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -43,7 +39,7 @@ import timber.log.Timber;
  * Created by shixiaoqiang01 on 2018/5/18.
  */
 
-public class ProfileOverViewFragment extends Fragment {
+public class ProfileOverViewFragment extends BaseFragment {
 
     private static String TAG_LOGIN = "tag_login";
 
@@ -114,7 +110,6 @@ public class ProfileOverViewFragment extends Fragment {
     @Nullable
     private String mLogin;
 
-    private Unbinder mUnBinder;
 
     private static final String TAG = ProfileOverViewFragment.class.getSimpleName();
 
@@ -146,11 +141,13 @@ public class ProfileOverViewFragment extends Fragment {
         }
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_profile_overview, container, false);
-        mUnBinder = ButterKnife.bind(this, root);
+    protected int fragmentLayout() {
+        return R.layout.fragment_profile_overview;
+    }
+
+    @Override
+    protected void onFragmentCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         if (getArguments() != null) {
             mLogin = getArguments().getString(TAG_LOGIN);
         }
@@ -159,7 +156,6 @@ public class ProfileOverViewFragment extends Fragment {
 
         mCompositeDisposable = new CompositeDisposable();
         mViewModel = ProfileOverViewModule.createViewModel(mLogin);
-        return root;
     }
 
     @Override
@@ -177,9 +173,6 @@ public class ProfileOverViewFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (mUnBinder != null) {
-            mUnBinder.unbind();
-        }
     }
 
     @Override

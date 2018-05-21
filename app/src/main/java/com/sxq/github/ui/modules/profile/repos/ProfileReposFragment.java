@@ -2,18 +2,17 @@ package com.sxq.github.ui.modules.profile.repos;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.sxq.github.R;
+import com.sxq.github.ui.base.BaseFragment;
 
 /**
  * Created by shixiaoqiang01 on 2018/5/19.
  */
 
-public class ProfileReposFragment extends Fragment {
+public class ProfileReposFragment extends BaseFragment {
 
     private static String TAG_LOGIN = "tag_login";
 
@@ -28,16 +27,16 @@ public class ProfileReposFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    protected int fragmentLayout() {
+        return R.layout.fragment_profile_repos;
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected void onFragmentCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         if (getArguments() != null) {
             mLogin = getArguments().getString(TAG_LOGIN);
         }
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_repos, container, false);
     }
-
 
 }

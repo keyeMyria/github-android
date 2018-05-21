@@ -8,30 +8,29 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.sxq.github.R;
 import com.sxq.github.data.model.FragmentPagerAdapterModel;
 import com.sxq.github.data.model.login.Login;
 import com.sxq.github.ui.adapter.FragmentPagerAdapter;
+import com.sxq.github.ui.base.BaseActivity;
 
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by shixiaoqiang01 on 2018/5/19.
  */
 
-public class UserActivity extends AppCompatActivity {
+public class UserActivity extends BaseActivity {
 
     private static String TAG_INDEX = "tag_index";
     private static String TAG_LOGIN = "tag_login";
 
 
     @BindView(R.id.tabs)
-    protected TabLayout mTabLayout;
+    TabLayout mTabLayout;
 
     @BindView(R.id.fab)
     protected FloatingActionButton mFloatingActionButton;
@@ -56,10 +55,13 @@ public class UserActivity extends AppCompatActivity {
     }
 
     @Override
+    protected int activityLayout() {
+        return R.layout.activity_user;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
-        ButterKnife.bind(this);
 
         if (savedInstanceState != null) {
             mIndex = savedInstanceState.getInt(TAG_INDEX);

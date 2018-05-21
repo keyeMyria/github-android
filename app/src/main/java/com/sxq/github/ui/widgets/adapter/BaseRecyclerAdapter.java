@@ -16,7 +16,6 @@ import com.sxq.github.utils.PrefGetter;
 import java.util.ArrayList;
 import java.util.List;
 
-import timber.log.Timber;
 
 
 public abstract class BaseRecyclerAdapter<M, VH extends BaseViewHolder,
@@ -82,7 +81,6 @@ public abstract class BaseRecyclerAdapter<M, VH extends BaseViewHolder,
 
     @Override
     public void onBindViewHolder(VH holder, int position) {
-        Timber.d("position:" + position);
         if (holder instanceof ProgressBarViewHolder) {
             if (((ProgressBarViewHolder) holder).itemView.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams) {
                 StaggeredGridLayoutManager.LayoutParams layoutParams = (StaggeredGridLayoutManager.LayoutParams) ((ProgressBarViewHolder) holder).itemView.getLayoutParams();
@@ -113,7 +111,6 @@ public abstract class BaseRecyclerAdapter<M, VH extends BaseViewHolder,
         if (position == 0 && !isShowedGuide() && mGuideListener != null) {
             mGuideListener.onShowGuide(holder.itemView, getItem(position));
             mShowedGuide = true;
-            Timber.e("error");
         }
     }
 
