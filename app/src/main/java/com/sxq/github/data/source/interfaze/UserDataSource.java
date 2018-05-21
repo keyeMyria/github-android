@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import github.profile.GetOrganizationsQuery;
 import github.profile.GetPinnedReposQuery;
 import io.reactivex.Observable;
 
@@ -14,5 +15,7 @@ import io.reactivex.Observable;
 
 public interface UserDataSource {
 
-     Observable<List<GetPinnedReposQuery.Node>> getProfileOverViewUiModel(@NonNull String login);
+    Observable<List<GetPinnedReposQuery.Node>> getPinnedRepositories(@NonNull String login);
+
+    Observable<GetOrganizationsQuery.Data> getOrganizations(@NonNull String login);
 }

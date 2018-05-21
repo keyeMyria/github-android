@@ -7,6 +7,7 @@ import com.sxq.github.data.source.interfaze.UserDataSource;
 
 import java.util.List;
 
+import github.profile.GetOrganizationsQuery;
 import github.profile.GetPinnedReposQuery;
 import io.reactivex.Observable;
 
@@ -36,7 +37,12 @@ public class UserLocalDataSource implements UserDataSource {
     }
 
     @Override
-    public Observable<List<GetPinnedReposQuery.Node>> getProfileOverViewUiModel(@NonNull String login) {
+    public Observable<List<GetPinnedReposQuery.Node>> getPinnedRepositories(@NonNull String login) {
+        return null;
+    }
+
+    @Override
+    public Observable<GetOrganizationsQuery.Data> getOrganizations(@NonNull String login) {
         return null;
     }
 }

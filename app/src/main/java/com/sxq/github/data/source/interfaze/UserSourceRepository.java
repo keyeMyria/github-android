@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import java.util.List;
 
+import github.profile.GetOrganizationsQuery;
 import github.profile.GetPinnedReposQuery;
 import io.reactivex.Observable;
 
@@ -40,7 +41,12 @@ public class UserSourceRepository implements UserDataSource {
     }
 
     @Override
-    public Observable<List<GetPinnedReposQuery.Node>> getProfileOverViewUiModel(@NonNull String login) {
-        return mUserRemoteDataSource.getProfileOverViewUiModel(login);
+    public Observable<List<GetPinnedReposQuery.Node>> getPinnedRepositories(@NonNull String login) {
+        return mUserRemoteDataSource.getPinnedRepositories(login);
+    }
+
+    @Override
+    public Observable<GetOrganizationsQuery.Data> getOrganizations(@NonNull String login) {
+        return mUserRemoteDataSource.getOrganizations(login);
     }
 }

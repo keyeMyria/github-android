@@ -1,0 +1,28 @@
+query getOrganizations($login: String!) {
+  user(login: $login) {
+    avatarUrl
+    email
+    createdAt
+    login
+    name
+    bio
+    location
+    followers {
+      totalCount
+    }
+    following {
+      totalCount
+    }
+    organizations(first: 100) {
+      edges {
+        node {
+          name
+          url
+          avatarUrl
+          location
+          email
+        }
+      }
+    }
+  }
+}
