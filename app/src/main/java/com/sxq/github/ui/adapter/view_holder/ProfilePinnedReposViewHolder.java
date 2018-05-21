@@ -44,7 +44,7 @@ public class ProfilePinnedReposViewHolder extends BaseViewHolder<GetPinnedReposQ
         return new ProfilePinnedReposViewHolder(getView(parent, R.layout.profile_pinned_repo_row_item), adapter, numberFormat);
     }
 
-    public ProfilePinnedReposViewHolder(@NonNull View itemView, @Nullable BaseRecyclerAdapter adapter, NumberFormat numberFormat) {
+    private ProfilePinnedReposViewHolder(@NonNull View itemView, @Nullable BaseRecyclerAdapter adapter, NumberFormat numberFormat) {
         super(itemView, adapter);
         this.mNumberFormat = numberFormat;
     }

@@ -21,7 +21,8 @@ public class Login {
     public static Login getCurrentUser() {
         if (BuildConfig.DEBUG) {
             //TODO delete it
-            return new Login("s-xq", BuildConfig.GITHUB_AUTH_TOKEN);
+//            return new Login("s-xq", BuildConfig.GITHUB_AUTH_TOKEN);
+            return new Login("JakeWharton", BuildConfig.GITHUB_AUTH_TOKEN);
         }
         return null;
     }

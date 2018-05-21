@@ -13,12 +13,14 @@ import android.view.ViewGroup;
 
 import com.sxq.github.R;
 import com.sxq.github.provider.emoji.EmojiParser;
+import com.sxq.github.ui.adapter.ProfileOrganizationsAdapter;
 import com.sxq.github.ui.adapter.ProfilePinnedReposAdapter;
 import com.sxq.github.ui.widgets.AvatarLayout;
 import com.sxq.github.ui.widgets.FontButton;
 import com.sxq.github.ui.widgets.FontTextView;
 import com.sxq.github.ui.widgets.SpannableBuilder;
 import com.sxq.github.ui.widgets.recyclerview.DynamicRecyclerView;
+import com.sxq.github.ui.widgets.recyclerview.layout_manager.GridManager;
 import com.sxq.github.ui.widgets.recyclerview.view_holder.BaseViewHolder;
 import com.sxq.github.utils.InputHelper;
 import com.sxq.github.utils.ParseDateFormat;
@@ -81,6 +83,12 @@ public class ProfileOverViewFragment extends Fragment {
     @BindView(R.id.followBtn)
     FontButton mFollowBtn;
 
+    @BindView(R.id.orgsCard)
+    CardView mOrgsCard;
+
+    @BindView(R.id.organizationsCaption)
+    FontTextView mOrganizationsCaption;
+
     @BindView(R.id.orgsList)
     DynamicRecyclerView mOrgsRecyclerView;
 
@@ -95,6 +103,10 @@ public class ProfileOverViewFragment extends Fragment {
 
     @NonNull
     private ProfileOverViewViewModel mViewModel;
+
+    private ProfilePinnedReposAdapter mProfilePinnedReposAdapter;
+
+    private ProfileOrganizationsAdapter mProfileOrganizationsAdapter;
 
     @NonNull
     private CompositeDisposable mCompositeDisposable;
@@ -257,6 +269,33 @@ public class ProfileOverViewFragment extends Fragment {
                 .append(" (")
                 .bold(String.valueOf(user.followers().totalCount()))
                 .append(")"));
+
+        if (user.organizations().edges().isEmpty()) {
+            mOrganizationsCaption.setVisibility(View.GONE);
+            mOrgsCard.setVisibility(View.GONE);
+        } else {
+            mOrganizationsCaption.setVisibility(View.VISIBLE);
+            mOrgsCard.setVisibility(View.VISIBLE);
+            mOrgsRecyclerView.setNestedScrollingEnabled(true);
+            mProfileOrganizationsAdapter = new ProfileOrganizationsAdapter(user.organizations().edges());
+            mProfileOrganizationsAdapter.setListener(new BaseViewHolder.OnItemClickListener<GetOrganizationsQuery.Edge>() {
+                @Override
+                public void onItemClick(int position, View v, GetOrganizationsQuery.Edge item) {
+                    /**
+                     * TODO jump to {@link com.sxq.github.ui.modules.user.UserActivity}
+                     */
+                }
+
+                @Override
+                public void onItemLongClick(int position, View v, GetOrganizationsQuery.Edge item) {
+
+                }
+            });
+            ((GridManager) mOrgsRecyclerView.getLayoutManager()).setIconSize(getResources().getDimensionPixelSize(R.dimen.header_icon_zie) + getResources().getDimensionPixelSize(R.dimen.spacing_xs_large));
+
+            mOrgsRecyclerView.setAdapter(mProfileOrganizationsAdapter);
+
+        }
     }
 
     private void updatePinnedRepos(List<GetPinnedReposQuery.Node> pinnedRepos) {
@@ -265,8 +304,8 @@ public class ProfileOverViewFragment extends Fragment {
         if (!pinnedRepos.isEmpty()) {
             mPinnedTextView.setVisibility(View.VISIBLE);
             mPinnedCardView.setVisibility(View.VISIBLE);
-            ProfilePinnedReposAdapter profilePinnedReposAdapter = new ProfilePinnedReposAdapter(pinnedRepos);
-            profilePinnedReposAdapter.setListener(new BaseViewHolder.OnItemClickListener<GetPinnedReposQuery.Node>() {
+            mProfilePinnedReposAdapter = new ProfilePinnedReposAdapter(pinnedRepos);
+            mProfilePinnedReposAdapter.setListener(new BaseViewHolder.OnItemClickListener<GetPinnedReposQuery.Node>() {
                 @Override
                 public void onItemClick(int position, View v, GetPinnedReposQuery.Node item) {
                     /**
@@ -281,7 +320,7 @@ public class ProfileOverViewFragment extends Fragment {
                 }
             });
             mPinnedRecyclerView.addDivider();
-            mPinnedRecyclerView.setAdapter(profilePinnedReposAdapter);
+            mPinnedRecyclerView.setAdapter(mProfilePinnedReposAdapter);
         } else {
             mPinnedTextView.setVisibility(View.GONE);
             mPinnedCardView.setVisibility(View.GONE);
