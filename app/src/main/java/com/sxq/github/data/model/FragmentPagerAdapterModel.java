@@ -10,6 +10,10 @@ import com.sxq.github.ui.modules.profile.followers.ProfileFollowersFragment;
 import com.sxq.github.ui.modules.profile.overview.ProfileOverViewFragment;
 import com.sxq.github.ui.modules.profile.repos.ProfileReposFragment;
 import com.sxq.github.ui.modules.profile.starred.ProfileStarredFragment;
+import com.sxq.github.ui.modules.repos.commit.ReposCommitFragment;
+import com.sxq.github.ui.modules.repos.contributors.ReposContributorsFragment;
+import com.sxq.github.ui.modules.repos.files.ReposFilesFragment;
+import com.sxq.github.ui.modules.repos.release.ReposReleasesFragment;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,6 +49,15 @@ public class FragmentPagerAdapterModel {
                 new FragmentPagerAdapterModel(context.getString(R.string.starred), ProfileStarredFragment.newInstance(login)),
                 new FragmentPagerAdapterModel(context.getString(R.string.followers), ProfileFollowersFragment.newInstance(login)),
                 new FragmentPagerAdapterModel(context.getString(R.string.following), ProfileStarredFragment.newInstance(login)))
+                .collect(Collectors.toList());
+    }
+
+    public static List<FragmentPagerAdapterModel> buildForRepository(@NonNull Context context, @NonNull String login, @NonNull String reposName) {
+        return Stream.of(
+                new FragmentPagerAdapterModel(context.getString(R.string.files), ReposFilesFragment.newInstance()),
+                new FragmentPagerAdapterModel(context.getString(R.string.commits), ReposCommitFragment.newInstance()),
+                new FragmentPagerAdapterModel(context.getString(R.string.releases), ReposReleasesFragment.newInstance()),
+                new FragmentPagerAdapterModel(context.getString(R.string.contributors), ReposContributorsFragment.newInstance()))
                 .collect(Collectors.toList());
     }
 

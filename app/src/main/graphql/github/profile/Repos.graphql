@@ -1,0 +1,15 @@
+query getRepos($login: String!, $name: String!) {
+  repository(owner: $login, name: $name) {
+    owner {
+      login
+      id
+    }
+    name
+    createdAt
+    databaseId
+    id
+    commitComments {
+      totalCount
+    }
+  }
+}
