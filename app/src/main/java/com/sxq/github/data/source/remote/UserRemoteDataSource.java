@@ -10,6 +10,7 @@ import com.sxq.github.provider.network.graphql.ApolloProvider;
 
 import java.util.List;
 
+import github.profile.GetFollowerQuery;
 import github.profile.GetFollowingQuery;
 import github.profile.GetOrganizationsQuery;
 import github.profile.GetPinnedReposQuery;
@@ -74,6 +75,18 @@ public class UserRemoteDataSource implements UserDataSource {
     public Observable<GetFollowingQuery.Data> getFollowing(@NonNull String login, @Nullable String pageCursor) {
         ApolloCall<GetFollowingQuery.Data> apolloCall = ApolloProvider.getApolloInstance()
                 .query(GetFollowingQuery.builder()
+                        .login(login)
+                        .pageCursor(pageCursor)
+                        .build());
+        return Rx2Apollo.from(apolloCall)
+                .filter(dataResponse -> !dataResponse.hasErrors())
+                .map(dataResponse -> dataResponse.data());
+    }
+
+    @Override
+    public Observable<GetFollowerQuery.Data> getFollower(@NonNull String login, @Nullable String pageCursor) {
+        ApolloCall<GetFollowerQuery.Data> apolloCall = ApolloProvider.getApolloInstance()
+                .query(GetFollowerQuery.builder()
                         .login(login)
                         .pageCursor(pageCursor)
                         .build());

@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 
 import com.sxq.github.R;
 import com.sxq.github.ui.modules.profile.feeds.ProfileFeedsFragment;
-import com.sxq.github.ui.modules.profile.followers.ProfileFollowersFragment;
+import com.sxq.github.ui.modules.profile.followers.ProfileFollowerFragment;
 import com.sxq.github.ui.modules.profile.following.ProfileFollowingFragment;
 import com.sxq.github.ui.modules.profile.overview.ProfileOverViewFragment;
 import com.sxq.github.ui.modules.profile.repos.ProfileReposFragment;
@@ -44,7 +44,7 @@ public class FragmentPagerAdapterModel {
                 new FragmentPagerAdapterModel(context.getString(R.string.feeds), ProfileFeedsFragment.newInstance(login)),
                 new FragmentPagerAdapterModel(context.getString(R.string.repos), ProfileReposFragment.newInstance(login)),
                 new FragmentPagerAdapterModel(context.getString(R.string.starred), ProfileStarredFragment.newInstance(login)),
-                new FragmentPagerAdapterModel(context.getString(R.string.followers), ProfileFollowersFragment.newInstance(login)),
+                new FragmentPagerAdapterModel(context.getString(R.string.followers), ProfileFollowerFragment.newInstance(login)),
                 new FragmentPagerAdapterModel(context.getString(R.string.following), ProfileFollowingFragment.newInstance(login)))
                 .collect(Collectors.toList());
     }

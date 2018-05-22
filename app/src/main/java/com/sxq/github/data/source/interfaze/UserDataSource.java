@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import java.util.List;
 
+import github.profile.GetFollowerQuery;
 import github.profile.GetFollowingQuery;
 import github.profile.GetOrganizationsQuery;
 import github.profile.GetPinnedReposQuery;
@@ -22,4 +23,7 @@ public interface UserDataSource {
     Observable<GetOrganizationsQuery.Data> getOrganizations(@NonNull String login);
 
     Observable<GetFollowingQuery.Data> getFollowing(@NonNull String login, @Nullable String pageCursor);
+
+    Observable<GetFollowerQuery.Data> getFollower(@NonNull String login, @Nullable String pageCursor);
+
 }

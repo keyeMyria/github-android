@@ -4,9 +4,7 @@ import android.os.Bundle;
 
 import com.sxq.github.data.model.login.Login;
 import com.sxq.github.ui.base.BaseActivity;
-import com.sxq.github.ui.modules.profile.following.ProfileFollowingFragment;
-import com.sxq.github.ui.modules.profile.overview.ProfileOverViewFragment;
-import com.sxq.github.ui.modules.user.UserActivity;
+import com.sxq.github.ui.modules.profile.followers.ProfileFollowerFragment;
 import com.sxq.github.utils.ActivityUtil;
 
 /**
@@ -24,11 +22,11 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ProfileFollowingFragment profileFollowingFragment =
-                (ProfileFollowingFragment)getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if(profileFollowingFragment==null){
-            profileFollowingFragment = ProfileFollowingFragment.newInstance(Login.getCurrentUser().getLogin());
-            ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), profileFollowingFragment, R.id.contentFrame);
+        ProfileFollowerFragment profileFollowerFragment =
+                (ProfileFollowerFragment)getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        if(profileFollowerFragment==null){
+            profileFollowerFragment = ProfileFollowerFragment.newInstance(Login.getCurrentUser().getLogin());
+            ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), profileFollowerFragment, R.id.contentFrame);
         }
     }
 }
