@@ -243,11 +243,11 @@ public abstract class BaseRecyclerAdapter<M, VH extends BaseViewHolder,
         }
     }
 
-    public boolean isProgressadde() {
+    public boolean isProgressAdded() {
         return mProgressAdded;
     }
 
-    private void removeProgress() {
+    public void removeProgress() {
         if (!isEmpty()) {
             M m = getItem(getItemCount() - 1);
             if (m == null) {

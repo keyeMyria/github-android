@@ -1,6 +1,6 @@
 query getFollowing($login: String!, $pageCursor: String) {
   user(login: $login) {
-    following(first: 5, after: $pageCursor) {
+    following(first: 15, after: $pageCursor) {
       edges {
         cursor
       }
