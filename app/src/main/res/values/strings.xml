@@ -30,7 +30,17 @@
     <string name="pinned">Pinned</string>
     <string name="contributions">Contributions</string>
     <string name="grid_layout_manager" translatable="false">com.sxq.github.ui.widgets.recyclerview.layout_manager.GridManager</string>
+    <string name="linear_layout_manager" translatable="false">com.sxq.github.ui.widgets.recyclerview.layout_manager.LinearManager</string>
     <string name="follow">Follow</string>
+
+    <string name="switch_branch">Switch branch</string>
+    <string name="home">Home</string>
+    <string name="download">Download</string>
+    <string name="add">Add</string>
+    <string name="search">Search</string>
+
+    <string name="success_purchase_message">Thanks for being extremely awesome!</string>
+
 
 
 </resources>

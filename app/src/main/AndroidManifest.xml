@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".ui.modules.user.UserActivity" />
         <activity android:name=".ui.modules.repos.ReposActivity"></activity>
+        <activity android:name=".ui.modules.repos.files.detail.ReposFileContentActivity"></activity>
     </application>
 
 </manifest>
