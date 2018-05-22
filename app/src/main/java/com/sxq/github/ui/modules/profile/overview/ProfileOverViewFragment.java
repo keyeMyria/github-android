@@ -170,10 +170,6 @@ public class ProfileOverViewFragment extends BaseFragment {
         super.onPause();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

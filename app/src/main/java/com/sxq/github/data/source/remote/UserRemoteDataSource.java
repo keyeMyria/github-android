@@ -10,9 +10,11 @@ import com.sxq.github.provider.network.graphql.ApolloProvider;
 
 import java.util.List;
 
+import github.profile.GetFollowingQuery;
 import github.profile.GetOrganizationsQuery;
 import github.profile.GetPinnedReposQuery;
 import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 
 /**
  * Created by shixiaoqiang01 on 2018/5/18.
@@ -50,7 +52,7 @@ public class UserRemoteDataSource implements UserDataSource {
                     if (dataResponse.data() != null && dataResponse.data().user() != null) {
                         return Observable.fromIterable(dataResponse.data().user().pinnedRepositories().edges());
                     }
-                    return Observable.fromIterable(dataResponse.data().user().pinnedRepositories().edges());
+                    return Observable.empty();
                 })
                 .map(GetPinnedReposQuery.Edge::node)
                 .toList()
@@ -62,6 +64,18 @@ public class UserRemoteDataSource implements UserDataSource {
         ApolloCall<GetOrganizationsQuery.Data> apolloCall = ApolloProvider.getApolloInstance()
                 .query(GetOrganizationsQuery.builder()
                         .login(login)
+                        .build());
+        return Rx2Apollo.from(apolloCall)
+                .filter(dataResponse -> !dataResponse.hasErrors())
+                .map(dataResponse -> dataResponse.data());
+    }
+
+    @Override
+    public Observable<GetFollowingQuery.Data> getFollowing(@NonNull String login, @Nullable String pageCursor) {
+        ApolloCall<GetFollowingQuery.Data> apolloCall = ApolloProvider.getApolloInstance()
+                .query(GetFollowingQuery.builder()
+                        .login(login)
+                        .pageCursor(pageCursor)
                         .build());
         return Rx2Apollo.from(apolloCall)
                 .filter(dataResponse -> !dataResponse.hasErrors())

@@ -1,0 +1,15 @@
+query getFollowing($login: String!, $pageCursor: String) {
+  user(login: $login) {
+    following(first: 5, after: $pageCursor) {
+      edges {
+        cursor
+      }
+      nodes {
+        id
+        name
+        avatarUrl
+        login
+      }
+    }
+  }
+}

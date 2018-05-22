@@ -3,10 +3,25 @@ package com.sxq.github.ui.modules.profile.following;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.sxq.github.R;
+import com.sxq.github.ui.adapter.ProfileFollowingAdapter;
 import com.sxq.github.ui.base.BaseFragment;
+import com.sxq.github.ui.widgets.StateLayout;
+import com.sxq.github.ui.widgets.adapter.BaseRecyclerAdapter;
+import com.sxq.github.ui.widgets.recyclerview.DynamicRecyclerView;
+import com.sxq.github.ui.widgets.recyclerview.view_holder.BaseViewHolder;
+import com.sxq.github.utils.InputHelper;
+
+import butterknife.BindView;
+import github.profile.GetFollowingQuery;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Created by shixiaoqiang01 on 2018/5/19.
@@ -15,9 +30,23 @@ import com.sxq.github.ui.base.BaseFragment;
 public class ProfileFollowingFragment extends BaseFragment {
 
     private static String TAG_LOGIN = "tag_login";
+    @BindView(R.id.recycler)
+    DynamicRecyclerView mRecycler;
+    @BindView(R.id.refresh)
+    SwipeRefreshLayout mRefresh;
+    @BindView(R.id.stateLayout)
+    StateLayout mStateLayout;
+
+    @Nullable
+    private String mLogin;
+    @Nullable
+    private String mLastPageCursor;
 
     @NonNull
-    private String mLogin;
+    private ProfileFollowingViewModel mProfileFollowingViewModel;
+    private CompositeDisposable mCompositeDisposable;
+
+    private ProfileFollowingAdapter mProfileFollowerAdapter;
 
     public static ProfileFollowingFragment newInstance(String login) {
         Bundle args = new Bundle();
@@ -37,6 +66,82 @@ public class ProfileFollowingFragment extends BaseFragment {
         if (getArguments() != null) {
             mLogin = getArguments().getString(TAG_LOGIN);
         }
+
+        mProfileFollowingViewModel = ProfileFollowingModule.createViewModel(mLogin);
+        mCompositeDisposable = new CompositeDisposable();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        bindViewModel();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        unBindViewModel();
+    }
+
+    private void bindViewModel() {
+        mCompositeDisposable.clear();
+        Disposable disposable = mProfileFollowingViewModel.getUiModel(mLastPageCursor)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        this::updateUi,
+                        throwable -> {
+                            Timber.e(throwable);
+                        }
+
+                );
+        mCompositeDisposable.add(disposable);
+    }
+
+    private void unBindViewModel() {
+        mCompositeDisposable.clear();
+    }
+
+    private void updateUi(ProfileFollowingUiModel profileFollowingUiModel) {
+        if (InputHelper.isEmpty(profileFollowingUiModel) || InputHelper.isEmpty(profileFollowingUiModel.getFollowingData().user().following().nodes())) {
+            showEmptyView();
+            return;
+        }
+        hideEmptyView();
+        mProfileFollowerAdapter = new ProfileFollowingAdapter(profileFollowingUiModel.getFollowingData().user().following().nodes());
+        mProfileFollowerAdapter.setListener(new BaseViewHolder.OnItemClickListener<GetFollowingQuery.Node>() {
+            @Override
+            public void onItemClick(int position, View v, GetFollowingQuery.Node item) {
+                /**
+                 * TODO jump to {@link com.sxq.github.ui.modules.user.UserActivity}
+                 */
+            }
+
+            @Override
+            public void onItemLongClick(int position, View v, GetFollowingQuery.Node item) {
+            }
+        });
+        mRecycler.addDivider();
+        mRecycler.setAdapter(mProfileFollowerAdapter);
+        mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                /**
+                 * TODO update
+                 */
+                mStateLayout.showProgress();
+            }
+        });
+
+
+    }
+
+    private void showEmptyView() {
+        mStateLayout.hideProgress();
+        mRecycler.setEmptyView(mStateLayout);
+    }
+
+    private void hideEmptyView() {
+        mStateLayout.setVisibility(View.GONE);
+    }
 }

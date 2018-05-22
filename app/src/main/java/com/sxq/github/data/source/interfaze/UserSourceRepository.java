@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import java.util.List;
 
+import github.profile.GetFollowingQuery;
 import github.profile.GetOrganizationsQuery;
 import github.profile.GetPinnedReposQuery;
 import io.reactivex.Observable;
@@ -48,5 +49,10 @@ public class UserSourceRepository implements UserDataSource {
     @Override
     public Observable<GetOrganizationsQuery.Data> getOrganizations(@NonNull String login) {
         return mUserRemoteDataSource.getOrganizations(login);
+    }
+
+    @Override
+    public Observable<GetFollowingQuery.Data> getFollowing(@NonNull String login, @Nullable String pageCursor) {
+        return mUserRemoteDataSource.getFollowing(login, pageCursor);
     }
 }

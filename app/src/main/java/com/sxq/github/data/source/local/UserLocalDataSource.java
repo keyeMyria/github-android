@@ -7,6 +7,7 @@ import com.sxq.github.data.source.interfaze.UserDataSource;
 
 import java.util.List;
 
+import github.profile.GetFollowingQuery;
 import github.profile.GetOrganizationsQuery;
 import github.profile.GetPinnedReposQuery;
 import io.reactivex.Observable;
@@ -43,6 +44,11 @@ public class UserLocalDataSource implements UserDataSource {
 
     @Override
     public Observable<GetOrganizationsQuery.Data> getOrganizations(@NonNull String login) {
+        return null;
+    }
+
+    @Override
+    public Observable<GetFollowingQuery.Data> getFollowing(@NonNull String login, @Nullable String pageCursor) {
         return null;
     }
 }
