@@ -88,6 +88,7 @@ public class ProfileFollowerFragment extends BaseFragment {
     }
 
     private void bindViewModel() {
+        mLastPageCursor = null;
         mCompositeDisposable.clear();
         Disposable disposable = mProfileFollowerViewModel.getUiModel(mLastPageCursor)
                 .subscribeOn(Schedulers.io())
