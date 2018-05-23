@@ -6,7 +6,10 @@ query getOwnedRepos($login: String!, $pageCursor: String) {
       }
       nodes {
         name
+        nameWithOwner
         isFork
+        viewerHasStarred
+        isPrivate
         stargazers {
           totalCount
         }

@@ -43,6 +43,7 @@
 
     <string name="success_purchase_message">Thanks for being extremely awesome!</string>
 
-
+    <string name="forked" translatable="false">Forked</string>
+    <string name="private_repo">Private</string>
 
 </resources>

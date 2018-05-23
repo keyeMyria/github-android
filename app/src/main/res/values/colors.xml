@@ -11,6 +11,9 @@
     <color name="carrot">@color/material_amber_800</color>
     <color name="material_green_700">#388E3C</color>
     <color name="material_red_700">#D32F2F</color>
+    <color name="material_indigo_700">#303F9F</color>
+    <color name="material_grey_700">#616161</color>
     <color name="material_amber_800">#FF8F00</color>
+
 
 </resources>

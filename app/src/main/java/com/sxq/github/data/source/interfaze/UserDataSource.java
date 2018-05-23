@@ -11,7 +11,6 @@ import github.profile.GetFollowingQuery;
 import github.profile.GetOrganizationsQuery;
 import github.profile.GetOwnedReposQuery;
 import github.profile.GetPinnedReposQuery;
-import github.profile.GetReposQuery;
 import io.reactivex.Observable;
 
 /**

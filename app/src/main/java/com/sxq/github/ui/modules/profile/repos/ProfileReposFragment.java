@@ -29,7 +29,7 @@ public class ProfileReposFragment extends BaseFragment {
 
     @Override
     protected int fragmentLayout() {
-        return R.layout.fragment_profile_repos;
+        return R.layout.small_grid_refresh_list;
     }
 
     @Override

@@ -45,4 +45,13 @@ public class ViewHelper {
     public static int dpToPx(@NonNull Context context, float dp) {
         return (int) (dp * context.getResources().getDisplayMetrics().density + 0.5f);
     }
+
+    @ColorInt public static int generateTextColor(int background) {
+        return getContrastColor(background);
+    }
+
+    @ColorInt private static int getContrastColor(@ColorInt int color) {
+        double a = 1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255;
+        return a < 0.5 ? Color.BLACK : Color.WHITE;
+    }
 }
