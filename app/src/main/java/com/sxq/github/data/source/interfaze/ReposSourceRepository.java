@@ -9,6 +9,8 @@ import com.sxq.github.data.source.remote.ReposRemoteDataSource;
 import java.util.List;
 
 import github.repos.GetBranchesQuery;
+import github.repos.GetCommitsQuery;
+import github.repos.GetContributorsQuery;
 import io.reactivex.Observable;
 
 public class ReposSourceRepository implements ReposDataSource {
@@ -40,5 +42,20 @@ public class ReposSourceRepository implements ReposDataSource {
     @Override
     public Observable<List<GetBranchesQuery.Node>> getBranches(@NonNull String owner, @NonNull String reposName) {
         return mReposRemoteRepository.getBranches(owner, reposName);
+    }
+
+    @Override
+    public Observable<GetCommitsQuery.Data> getCommits(@NonNull String owner, @NonNull String reposName, @NonNull String branch, @Nullable String pageCursor) {
+        return mReposRemoteRepository.getCommits(owner, reposName, branch, pageCursor);
+    }
+
+    @Override
+    public Observable<String> getFileContent(@NonNull String owner, @NonNull String reposName, @NonNull String branch, @NonNull String path) {
+        return mReposRemoteRepository.getFileContent(owner, reposName, branch, path);
+    }
+
+    @Override
+    public Observable<GetContributorsQuery.Data> getContributors(@NonNull String owner, @NonNull String reposName) {
+        return mReposRemoteRepository.getContributors(owner, reposName);
     }
 }

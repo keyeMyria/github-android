@@ -21,3 +21,82 @@ query getBranches($owner: String!, $reposName: String!) {
     }
   }
 }
+
+
+query getCommits($owner: String!, $reposName: String!, $branch: String!, $pageCursor: String) {
+  repository(owner: $owner, name: $reposName) {
+    ref(qualifiedName: $branch) {
+      target {
+        ... on Commit {
+          id
+          history(first: 15, after: $pageCursor) {
+            pageInfo {
+              hasNextPage
+            }
+            edges {
+              cursor
+              node {
+                messageHeadline
+                oid
+                message
+                committedDate
+                author {
+                  name
+                  email
+                  date
+                  avatarUrl
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+# get only root file
+query getOnlyRootFile {
+  repository(owner: "s-xq", name: "github-android") {
+    defaultBranchRef {
+      target {
+        ... on Commit {
+          tree {
+            entries {
+              name
+              mode
+              type
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+query getFileContent($owner: String!, $reposName: String!, $expression: String!) {
+  repository(owner: $owner, name: $reposName) {
+    object(expression: $expression) {
+      id
+      ... on Blob {
+        text
+      }
+    }
+  }
+}
+
+query getContributors($owner: String!, $reposName: String!) {
+  repository(owner: $owner, name: $reposName) {
+    collaborators(first: 100) {
+      totalCount
+      nodes {
+        name
+        login
+        avatarUrl
+      }
+    }
+  }
+}
