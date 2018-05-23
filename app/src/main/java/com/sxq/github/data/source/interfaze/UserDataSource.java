@@ -9,7 +9,9 @@ import java.util.List;
 import github.profile.GetFollowerQuery;
 import github.profile.GetFollowingQuery;
 import github.profile.GetOrganizationsQuery;
+import github.profile.GetOwnedReposQuery;
 import github.profile.GetPinnedReposQuery;
+import github.profile.GetReposQuery;
 import io.reactivex.Observable;
 
 /**
@@ -25,5 +27,7 @@ public interface UserDataSource {
     Observable<GetFollowingQuery.Data> getFollowing(@NonNull String login, @Nullable String pageCursor);
 
     Observable<GetFollowerQuery.Data> getFollower(@NonNull String login, @Nullable String pageCursor);
+
+    Observable<GetOwnedReposQuery.Data> getOwnedRepos(@NonNull String login, @Nullable String pageCursor);
 
 }

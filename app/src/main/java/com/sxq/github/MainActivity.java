@@ -23,7 +23,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        ReposActivity.startActivity(this, Login.getCurrentUser().getLogin(), "s-xq");
-        ReposActivity.startActivity(this, Login.getCurrentUser().getLogin(), "RxJava");
-//        UserActivity.startActivity(this, Login.getCurrentUser().getLogin());
+//        ReposActivity.startActivity(this, Login.getCurrentUser().getLogin(), "RxJava");
+        UserActivity.startActivity(this, Login.getCurrentUser().getLogin());
     }
 }

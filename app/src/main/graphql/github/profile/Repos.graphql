@@ -1,15 +1,27 @@
-query getRepos($login: String!, $name: String!) {
-  repository(owner: $login, name: $name) {
-    owner {
-      login
-      id
-    }
-    name
-    createdAt
-    databaseId
-    id
-    commitComments {
-      totalCount
+query getOwnedRepos($login: String!, $pageCursor: String) {
+  user(login: $login) {
+    repositories(last: 15, after: $pageCursor, orderBy: {field: UPDATED_AT, direction: DESC}) {
+      edges {
+        cursor
+      }
+      nodes {
+        name
+        isFork
+        stargazers {
+          totalCount
+        }
+        forks {
+          totalCount
+        }
+        updatedAt
+        languages(orderBy: {field: SIZE, direction: DESC}, first: 1) {
+          nodes {
+            name
+            color
+          }
+        }
+        diskUsage
+      }
     }
   }
 }

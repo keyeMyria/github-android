@@ -13,6 +13,7 @@ import java.util.List;
 import github.profile.GetFollowerQuery;
 import github.profile.GetFollowingQuery;
 import github.profile.GetOrganizationsQuery;
+import github.profile.GetOwnedReposQuery;
 import github.profile.GetPinnedReposQuery;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
@@ -87,6 +88,18 @@ public class UserRemoteDataSource implements UserDataSource {
     public Observable<GetFollowerQuery.Data> getFollower(@NonNull String login, @Nullable String pageCursor) {
         ApolloCall<GetFollowerQuery.Data> apolloCall = ApolloProvider.getApolloInstance()
                 .query(GetFollowerQuery.builder()
+                        .login(login)
+                        .pageCursor(pageCursor)
+                        .build());
+        return Rx2Apollo.from(apolloCall)
+                .filter(dataResponse -> !dataResponse.hasErrors())
+                .map(dataResponse -> dataResponse.data());
+    }
+
+    @Override
+    public Observable<GetOwnedReposQuery.Data> getOwnedRepos(@NonNull String login, @Nullable String pageCursor) {
+        ApolloCall<GetOwnedReposQuery.Data> apolloCall = ApolloProvider.getApolloInstance()
+                .query(GetOwnedReposQuery.builder()
                         .login(login)
                         .pageCursor(pageCursor)
                         .build());

@@ -8,6 +8,7 @@ import java.util.List;
 import github.profile.GetFollowerQuery;
 import github.profile.GetFollowingQuery;
 import github.profile.GetOrganizationsQuery;
+import github.profile.GetOwnedReposQuery;
 import github.profile.GetPinnedReposQuery;
 import io.reactivex.Observable;
 
@@ -60,5 +61,10 @@ public class UserSourceRepository implements UserDataSource {
     @Override
     public Observable<GetFollowerQuery.Data> getFollower(@NonNull String login, @Nullable String pageCursor) {
         return mUserRemoteDataSource.getFollower(login, pageCursor);
+    }
+
+    @Override
+    public Observable<GetOwnedReposQuery.Data> getOwnedRepos(@NonNull String login, @Nullable String pageCursor) {
+        return getOwnedRepos(login, pageCursor);
     }
 }
