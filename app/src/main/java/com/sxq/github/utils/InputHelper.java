@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.google.common.base.Preconditions;
 
+import java.util.List;
+
 public class InputHelper {
 
     public static boolean isWhiteSpaces(@Nullable String s) {
@@ -21,6 +23,10 @@ public class InputHelper {
 
     public static boolean isEmpty(@Nullable Object text) {
         return text == null || isEmpty(text.toString());
+    }
+
+    public static boolean isEmpty(@Nullable List list){
+        return list == null || list.isEmpty();
     }
 
     public static boolean isEmpty(@Nullable EditText text) {

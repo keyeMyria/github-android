@@ -3,6 +3,7 @@ package com.sxq.github;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
+import com.sxq.github.provider.emoji.EmojiManager;
 import com.sxq.github.utils.TypeFaceHelper;
 import com.sxq.github.utils.log.CrashHandleTree;
 
@@ -31,6 +32,8 @@ public class App extends Application {
     private void init() {
         initFont();
         initLogging();
+        EmojiManager.load();
+
     }
 
     private void initFont() {

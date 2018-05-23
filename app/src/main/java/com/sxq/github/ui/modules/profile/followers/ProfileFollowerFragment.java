@@ -1,4 +1,4 @@
-package com.sxq.github.ui.modules.profile.following;
+package com.sxq.github.ui.modules.profile.followers;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.sxq.github.R;
-import com.sxq.github.ui.adapter.ProfileFollowingAdapter;
+import com.sxq.github.ui.adapter.ProfileFollowerAdapter;
 import com.sxq.github.ui.base.BaseFragment;
 import com.sxq.github.ui.widgets.StateLayout;
 import com.sxq.github.ui.widgets.recyclerview.DynamicRecyclerView;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import github.profile.GetFollowingQuery;
+import github.profile.GetFollowerQuery;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -31,7 +31,7 @@ import timber.log.Timber;
  * Created by shixiaoqiang01 on 2018/5/19.
  */
 
-public class ProfileFollowingFragment extends BaseFragment {
+public class ProfileFollowerFragment extends BaseFragment {
 
     private static String TAG_LOGIN = "tag_login";
     @BindView(R.id.recycler)
@@ -47,22 +47,22 @@ public class ProfileFollowingFragment extends BaseFragment {
     private String mLastPageCursor;
 
     @NonNull
-    private ProfileFollowingViewModel mProfileFollowingViewModel;
+    private ProfileFollowerViewModel mProfileFollowerViewModel;
     private CompositeDisposable mCompositeDisposable;
 
-    private ProfileFollowingAdapter mProfileFollowerAdapter;
+    private ProfileFollowerAdapter mProfileFollowerAdapter;
 
-    public static ProfileFollowingFragment newInstance(String login) {
+    public static ProfileFollowerFragment newInstance(String login) {
         Bundle args = new Bundle();
         args.putString(TAG_LOGIN, login);
-        ProfileFollowingFragment fragment = new ProfileFollowingFragment();
+        ProfileFollowerFragment fragment = new ProfileFollowerFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     protected int fragmentLayout() {
-        return R.layout.fragment_profile_following;
+        return R.layout.fragment_profile_followers;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class ProfileFollowingFragment extends BaseFragment {
             mLogin = getArguments().getString(TAG_LOGIN);
         }
 
-        mProfileFollowingViewModel = ProfileFollowingModule.createViewModel(mLogin);
+        mProfileFollowerViewModel = ProfileFollowerModule.createViewModel(mLogin);
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -89,7 +89,7 @@ public class ProfileFollowingFragment extends BaseFragment {
 
     private void bindViewModel() {
         mCompositeDisposable.clear();
-        Disposable disposable = mProfileFollowingViewModel.getUiModel(mLastPageCursor)
+        Disposable disposable = mProfileFollowerViewModel.getUiModel(mLastPageCursor)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -106,24 +106,24 @@ public class ProfileFollowingFragment extends BaseFragment {
         mCompositeDisposable.clear();
     }
 
-    private void updateUi(ProfileFollowingUiModel profileFollowingUiModel) {
-        if (InputHelper.isEmpty(profileFollowingUiModel) || InputHelper.isEmpty(profileFollowingUiModel.getFollowingData().user().following().nodes())) {
+    private void updateUi(ProfileFollowerUiModel profileFollowerUiModel) {
+        if (InputHelper.isEmpty(profileFollowerUiModel) || InputHelper.isEmpty(profileFollowerUiModel.getFollowerData().user().followers().nodes())) {
             showEmptyView();
             return;
         }
         hideEmptyView();
-        getAndSetLastPageCursor(profileFollowingUiModel);
-        mProfileFollowerAdapter = new ProfileFollowingAdapter(new ArrayList<>(profileFollowingUiModel.getFollowingData().user().following().nodes()));
-        mProfileFollowerAdapter.setListener(new BaseViewHolder.OnItemClickListener<GetFollowingQuery.Node>() {
+        getAndSetLastPageCursor(profileFollowerUiModel);
+        mProfileFollowerAdapter = new ProfileFollowerAdapter(new ArrayList<>(profileFollowerUiModel.getFollowerData().user().followers().nodes()));
+        mProfileFollowerAdapter.setListener(new BaseViewHolder.OnItemClickListener<GetFollowerQuery.Node>() {
             @Override
-            public void onItemClick(int position, View v, GetFollowingQuery.Node item) {
+            public void onItemClick(int position, View v, GetFollowerQuery.Node item) {
                 /**
                  * TODO jump to {@link com.sxq.github.ui.modules.user.UserActivity}
                  */
             }
 
             @Override
-            public void onItemLongClick(int position, View v, GetFollowingQuery.Node item) {
+            public void onItemLongClick(int position, View v, GetFollowerQuery.Node item) {
             }
         });
         mRecycler.addDivider();
@@ -134,11 +134,11 @@ public class ProfileFollowingFragment extends BaseFragment {
             public boolean onLoadMore(int page, int totalItemCount) {
                 Timber.d("page=%d,totalItemCount=%d", page, totalItemCount);
                 mStateLayout.showProgress();
-                Disposable disposable = mProfileFollowingViewModel.getUiModel(mLastPageCursor)
+                Disposable disposable = mProfileFollowerViewModel.getUiModel(mLastPageCursor)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(newProfileFollowingModel -> {
-                            showMore(newProfileFollowingModel);
+                        .subscribe(newProfileFollowerModel -> {
+                            showMore(newProfileFollowerModel);
                         }, throwable -> {
                             Timber.e(throwable);
                         }, () -> {
@@ -160,17 +160,17 @@ public class ProfileFollowingFragment extends BaseFragment {
         });
     }
 
-    private void showMore(ProfileFollowingUiModel newUiModel) {
-        if (InputHelper.isEmpty(newUiModel) || InputHelper.isEmpty(newUiModel.getFollowingData().user().following().nodes())) {
+    private void showMore(ProfileFollowerUiModel newUiModel) {
+        if (InputHelper.isEmpty(newUiModel) || InputHelper.isEmpty(newUiModel.getFollowerData().user().followers().nodes())) {
             showNoMoreData();
             return;
         }
         getAndSetLastPageCursor(newUiModel);
-        mProfileFollowerAdapter.addItems(newUiModel.getFollowingData().user().following().nodes());
+        mProfileFollowerAdapter.addItems(newUiModel.getFollowerData().user().followers().nodes());
     }
 
-    private String getAndSetLastPageCursor(ProfileFollowingUiModel uiModel) {
-        List<GetFollowingQuery.Edge> cursors = uiModel.getFollowingData().user().following().edges();
+    private String getAndSetLastPageCursor(ProfileFollowerUiModel uiModel) {
+        List<GetFollowerQuery.Edge> cursors = uiModel.getFollowerData().user().followers().edges();
         mLastPageCursor = cursors.get(cursors.size() - 1).cursor().toString();
         return mLastPageCursor;
     }

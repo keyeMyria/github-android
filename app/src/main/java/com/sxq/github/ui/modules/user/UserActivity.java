@@ -1,5 +1,6 @@
 package com.sxq.github.ui.modules.user;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.app.Service;
 import android.content.Context;
@@ -9,12 +10,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
 import com.sxq.github.R;
 import com.sxq.github.data.model.FragmentPagerAdapterModel;
 import com.sxq.github.data.model.login.Login;
 import com.sxq.github.ui.adapter.FragmentPagerAdapter;
 import com.sxq.github.ui.base.BaseActivity;
+import com.sxq.github.utils.ViewHelper;
 
 
 import butterknife.BindView;
@@ -37,6 +40,9 @@ public class UserActivity extends BaseActivity {
 
     @BindView(R.id.viewPager)
     protected ViewPager mViewPager;
+
+    @BindView(R.id.toolbar)
+    protected Toolbar mToolbar;
 
     private int mIndex;
     private String mLogin;
@@ -67,6 +73,8 @@ public class UserActivity extends BaseActivity {
             mIndex = savedInstanceState.getInt(TAG_INDEX);
             mLogin = savedInstanceState.getString(TAG_LOGIN);
         }
+
+        setSupportActionBar(mToolbar);
 
         FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(),
                 FragmentPagerAdapterModel.buildForProfile(this, Login.getCurrentUser().getLogin()));
