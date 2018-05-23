@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.sxq.github.R;
 import com.sxq.github.ui.adapter.ReposCommitAdapter;
 import com.sxq.github.ui.base.BaseFragment;
+import com.sxq.github.ui.modules.repos.branch.ReposBranchModule;
 import com.sxq.github.ui.widgets.FontTextView;
 import com.sxq.github.ui.widgets.StateLayout;
 import com.sxq.github.ui.widgets.recyclerview.DynamicRecyclerView;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import github.repos.GetCommitsQuery;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -71,6 +73,19 @@ public class ReposCommitFragment extends BaseFragment {
         return fragment;
     }
 
+    @OnClick(R.id.branches)
+    void onClick(View v) {
+        ReposBranchModule.launch(getChildFragmentManager(), mLogin, mReposName,
+                new ReposBranchModule.BranchSelectedListener() {
+                    @Override
+                    public void onBranchSelected(String selectedBranch) {
+                        Timber.d("onBranchSelected:%s", selectedBranch);
+                        mBranch = selectedBranch;
+                        bindViewModel();
+                    }
+                });
+    }
+
     @Override
     protected int fragmentLayout() {
         return R.layout.fragment_repos_commit;
@@ -83,7 +98,6 @@ public class ReposCommitFragment extends BaseFragment {
             mReposName = getArguments().getString(TAG_REPOS_NAME);
             mBranch = Constants.MASTER;
         }
-
         mReposCommitViewModel = ReposCommitModule.createViewModel(mLogin, mReposName, mBranch);
         mCompositeDisposable = new CompositeDisposable();
     }
@@ -102,8 +116,9 @@ public class ReposCommitFragment extends BaseFragment {
 
     private void bindViewModel() {
         mLastPageCursor = null;
+        mBranches.setText(mBranch);
         mCompositeDisposable.clear();
-        Disposable disposable = mReposCommitViewModel.getUiModel(mLastPageCursor)
+        Disposable disposable = mReposCommitViewModel.getUiModel(mBranch, mLastPageCursor)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -149,7 +164,7 @@ public class ReposCommitFragment extends BaseFragment {
             public boolean onLoadMore(int page, int totalItemCount) {
                 Timber.d("page=%d,totalItemCount=%d", page, totalItemCount);
                 mStateLayout.showProgress();
-                Disposable disposable = mReposCommitViewModel.getUiModel(mLastPageCursor)
+                Disposable disposable = mReposCommitViewModel.getUiModel(mBranch, mLastPageCursor)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(newReposCommitUiModel -> {
@@ -169,7 +184,7 @@ public class ReposCommitFragment extends BaseFragment {
                 /**
                  * TODO update
                  */
-
+                bindViewModel();
                 mRefresh.setRefreshing(false);
             }
         });

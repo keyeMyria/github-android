@@ -12,6 +12,7 @@ import com.sxq.github.ui.widgets.adapter.BaseRecyclerAdapter;
 
 
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
@@ -42,9 +43,12 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder implemen
 
     @Override
     public void onClick(View view) {
+        Timber.d("itemViewClick:position:%d", getAdapterPosition());
         if (mAdapter != null && mAdapter.getListener() != null) {
+            Timber.d("mAdapter != null && mAdapter.getListener() != null");
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION && position < mAdapter.getItemCount()) {
+                Timber.d("position != RecyclerView.NO_POSITION && position < mAdapter.getItemCount()");
                 mAdapter.getListener().onItemClick(position, view, mAdapter.getItem(position));
             }
         }

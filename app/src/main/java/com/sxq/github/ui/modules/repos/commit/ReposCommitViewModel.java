@@ -26,11 +26,6 @@ public class ReposCommitViewModel {
     @Nullable
     private String mBranch;
 
-    @Nullable
-    private String mPageCursor;
-
-    private int mPageSize;
-
 
     public ReposCommitViewModel(@NonNull ReposSourceRepository ReposSourceRepository,
                                 @NonNull ReposCommitNavigator reposCommitNavigator,
@@ -49,10 +44,11 @@ public class ReposCommitViewModel {
         return Observable.empty();
     }
 
-    public Observable<ReposCommitUiModel> getUiModel(@Nullable String lastPageCursor) {
+    public Observable<ReposCommitUiModel> getUiModel(@NonNull String branch , @Nullable String lastPageCursor) {
         if (InputHelper.isEmpty(mLogin)) {
             return Observable.empty();
         }
+        mBranch = branch;
         return mReposSourceRepository.getCommits(mLogin, mReposName, mBranch, lastPageCursor)
                 .map(data -> new ReposCommitUiModel(data));
     }
