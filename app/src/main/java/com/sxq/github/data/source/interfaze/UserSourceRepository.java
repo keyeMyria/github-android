@@ -65,6 +65,6 @@ public class UserSourceRepository implements UserDataSource {
 
     @Override
     public Observable<GetOwnedReposQuery.Data> getOwnedRepos(@NonNull String login, @Nullable String pageCursor) {
-        return getOwnedRepos(login, pageCursor);
+        return mUserRemoteDataSource.getOwnedRepos(login, pageCursor);
     }
 }

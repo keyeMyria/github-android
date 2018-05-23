@@ -39,7 +39,7 @@ public class ProfileReposViewHolder extends BaseViewHolder<GetOwnedReposQuery.No
     FontTextView mSize;
     @BindView(R.id.language)
     FontTextView mLanguage;
-    @BindString(R.string.forked) String forked;
+    @BindString(R.string.forked) String mForked;
     @BindString(R.string.private_repo) String privateRepo;
     @BindColor(R.color.material_indigo_700) int forkColor;
     @BindColor(R.color.material_grey_700) int privateColor;
@@ -61,7 +61,7 @@ public class ProfileReposViewHolder extends BaseViewHolder<GetOwnedReposQuery.No
     public void bind(@NonNull GetOwnedReposQuery.Node node) {
         if (node.isFork() && !node.viewerHasStarred()) {
             mTitle.setText(SpannableBuilder.builder()
-                    .append(" " + node.isFork() + " ", new LabelSpan(forkColor))
+                    .append(" " + mForked + " ", new LabelSpan(forkColor))
                     .append(" ")
                     .append(node.name(), new LabelSpan(Color.TRANSPARENT)));
         } else if (node.isPrivate()) {

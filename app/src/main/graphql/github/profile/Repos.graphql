@@ -1,6 +1,6 @@
 query getOwnedRepos($login: String!, $pageCursor: String) {
   user(login: $login) {
-    repositories(last: 15, after: $pageCursor, orderBy: {field: UPDATED_AT, direction: DESC}) {
+    repositories(first: 15, after: $pageCursor, orderBy: {field: UPDATED_AT, direction: DESC}) {
       edges {
         cursor
       }
