@@ -11,6 +11,9 @@ import com.sxq.github.provider.network.graphql.ApolloProvider;
 import java.util.List;
 
 import github.repos.GetBranchesQuery;
+import github.repos.GetCommitsQuery;
+import github.repos.GetContributorsQuery;
+import github.repos.GetFileContentQuery;
 import io.reactivex.Observable;
 
 public class ReposRemoteDataSource implements ReposDataSource {
@@ -49,5 +52,43 @@ public class ReposRemoteDataSource implements ReposDataSource {
                 })
                 .toList()
                 .toObservable();
+    }
+
+    @Override
+    public Observable<GetCommitsQuery.Data> getCommits(@NonNull String owner, @NonNull String reposName, @NonNull String branch) {
+        ApolloCall<GetCommitsQuery.Data> apolloCall = ApolloProvider.getApolloInstance()
+                .query(GetCommitsQuery.builder()
+                        .owner(owner)
+                        .reposName(reposName)
+                        .branch(branch)
+                        .build());
+        return Rx2Apollo.from(apolloCall)
+                .filter(dataResponse -> !dataResponse.hasErrors())
+                .map(dataResponse -> dataResponse.data());
+    }
+
+    @Override
+    public Observable<String> getFileContent(@NonNull String owner, @NonNull String reposName, @NonNull String branch, @NonNull String path) {
+        ApolloCall<GetFileContentQuery.Data> apolloCall = ApolloProvider.getApolloInstance()
+                .query(GetFileContentQuery.builder()
+                        .owner(owner)
+                        .reposName(reposName)
+                        .expression(String.format("%s:%s", branch, path))
+                        .build());
+        return Rx2Apollo.from(apolloCall)
+                .filter(dataResponse -> !dataResponse.hasErrors())
+                .map(dataResponse -> dataResponse.data().repository().object().asBlob().text());
+    }
+
+    @Override
+    public Observable<GetContributorsQuery.Data> getContributors(@NonNull String owner, @NonNull String reposName) {
+        ApolloCall<GetContributorsQuery.Data> apolloCall = ApolloProvider.getApolloInstance()
+                .query(GetContributorsQuery.builder()
+                        .owner(owner)
+                        .reposName(reposName)
+                        .build());
+        return Rx2Apollo.from(apolloCall)
+                .filter(dataResponse -> !dataResponse.hasErrors())
+                .map(dataResponse -> dataResponse.data());
     }
 }
