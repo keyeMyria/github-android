@@ -88,10 +88,13 @@ query getFileContent($owner: String!, $reposName: String!, $expression: String!)
   }
 }
 
-query getContributors($owner: String!, $reposName: String!) {
+query getContributors($owner: String!, $reposName: String!, $pageCursor: String) {
   repository(owner: $owner, name: $reposName) {
-    collaborators(first: 100) {
+    mentionableUsers(first: 15, after: $pageCursor) {
       totalCount
+      edges{
+        cursor
+      }
       nodes {
         name
         login

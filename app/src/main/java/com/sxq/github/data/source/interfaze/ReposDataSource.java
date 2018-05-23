@@ -18,5 +18,5 @@ public interface ReposDataSource {
 
     Observable<String> getFileContent(@NonNull String owner, @NonNull String reposName, @NonNull String branch, @NonNull String path);
 
-    Observable<GetContributorsQuery.Data> getContributors(@NonNull String owner, @NonNull String reposName);
+    Observable<GetContributorsQuery.Data> getContributors(@NonNull String owner, @NonNull String reposName, @Nullable String pageCursor);
 }

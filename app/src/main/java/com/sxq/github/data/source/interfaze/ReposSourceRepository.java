@@ -55,7 +55,7 @@ public class ReposSourceRepository implements ReposDataSource {
     }
 
     @Override
-    public Observable<GetContributorsQuery.Data> getContributors(@NonNull String owner, @NonNull String reposName) {
-        return mReposRemoteRepository.getContributors(owner, reposName);
+    public Observable<GetContributorsQuery.Data> getContributors(@NonNull String owner, @NonNull String reposName, @Nullable String pageCursor) {
+        return mReposRemoteRepository.getContributors(owner, reposName, pageCursor);
     }
 }

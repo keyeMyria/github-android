@@ -47,7 +47,7 @@ public class ReposLocalDataSource implements ReposDataSource {
     }
 
     @Override
-    public Observable<GetContributorsQuery.Data> getContributors(@NonNull String owner, @NonNull String reposName) {
+    public Observable<GetContributorsQuery.Data> getContributors(@NonNull String owner, @NonNull String reposName, @Nullable String pageCursor) {
         return null;
     }
 }

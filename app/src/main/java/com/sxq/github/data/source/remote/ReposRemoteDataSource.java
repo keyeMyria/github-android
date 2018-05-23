@@ -82,11 +82,12 @@ public class ReposRemoteDataSource implements ReposDataSource {
     }
 
     @Override
-    public Observable<GetContributorsQuery.Data> getContributors(@NonNull String owner, @NonNull String reposName) {
+    public Observable<GetContributorsQuery.Data> getContributors(@NonNull String owner, @NonNull String reposName, @Nullable String pageCursor) {
         ApolloCall<GetContributorsQuery.Data> apolloCall = ApolloProvider.getApolloInstance()
                 .query(GetContributorsQuery.builder()
                         .owner(owner)
                         .reposName(reposName)
+                        .pageCursor(pageCursor)
                         .build());
         return Rx2Apollo.from(apolloCall)
                 .filter(dataResponse -> !dataResponse.hasErrors())
