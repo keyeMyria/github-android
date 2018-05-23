@@ -29,10 +29,19 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder implemen
         return LayoutInflater.from(parent.getContext()).inflate(layoutRes, parent, false);
     }
 
+    /**
+     * If you need to add {@link OnItemClickListener}, you need to pass {@link BaseRecyclerAdapter} to it.
+     * @param itemView
+     */
     public BaseViewHolder(View itemView) {
         this(itemView, null);
     }
 
+    /**
+     * If you need to add {@link OnItemClickListener} , you need to choose this constructor to pass {@link BaseRecyclerAdapter}.
+     * @param itemView
+     * @param adapter
+     */
     public BaseViewHolder(@NonNull View itemView, @Nullable BaseRecyclerAdapter adapter) {
         super(itemView);
         ButterKnife.bind(this, itemView);
@@ -43,12 +52,9 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder implemen
 
     @Override
     public void onClick(View view) {
-        Timber.d("itemViewClick:position:%d", getAdapterPosition());
         if (mAdapter != null && mAdapter.getListener() != null) {
-            Timber.d("mAdapter != null && mAdapter.getListener() != null");
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION && position < mAdapter.getItemCount()) {
-                Timber.d("position != RecyclerView.NO_POSITION && position < mAdapter.getItemCount()");
                 mAdapter.getListener().onItemClick(position, view, mAdapter.getItem(position));
             }
         }
