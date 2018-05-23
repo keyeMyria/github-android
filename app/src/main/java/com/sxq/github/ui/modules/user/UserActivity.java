@@ -74,10 +74,12 @@ public class UserActivity extends BaseActivity {
             mLogin = savedInstanceState.getString(TAG_LOGIN);
         }
 
+        mLogin = getIntent().getStringExtra(TAG_LOGIN);
+
         setSupportActionBar(mToolbar);
 
         FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(),
-                FragmentPagerAdapterModel.buildForProfile(this, Login.getCurrentUser().getLogin()));
+                FragmentPagerAdapterModel.buildForProfile(this, mLogin));
         mViewPager.setAdapter(fragmentPagerAdapter);
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);

@@ -5,4 +5,6 @@ package com.sxq.github.utils.common;
  */
 
 public class Constants {
+
+    public static String MASTER = "master";
 }

@@ -31,6 +31,8 @@
     <string name="contributions">Contributions</string>
     <string name="grid_layout_manager" translatable="false">com.sxq.github.ui.widgets.recyclerview.layout_manager.GridManager</string>
     <string name="linear_layout_manager" translatable="false">com.sxq.github.ui.widgets.recyclerview.layout_manager.LinearManager</string>
+    <string name="staggered_layout_manager" translatable="false">com.sxq.github.ui.widgets.recyclerview.layout_manager.StaggeredManager</string>
+
     <string name="follow">Follow</string>
 
     <string name="switch_branch">Switch branch</string>

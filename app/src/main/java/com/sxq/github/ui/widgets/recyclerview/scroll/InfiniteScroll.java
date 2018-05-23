@@ -7,6 +7,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.sxq.github.ui.widgets.adapter.BaseRecyclerAdapter;
 
+import timber.log.Timber;
+
 
 public abstract class InfiniteScroll extends RecyclerView.OnScrollListener {
     private int mVisibleThreshold = 3;

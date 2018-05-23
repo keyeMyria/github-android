@@ -47,6 +47,10 @@ public class ReposActivity extends BaseActivity {
             mLogin = savedInstanceState.getString(TAG_LOGIN);
             mReposName = savedInstanceState.getString(TAG_REPOS_NAME);
         }
+
+        mLogin = getIntent().getStringExtra(TAG_LOGIN);
+        mReposName = getIntent().getStringExtra(TAG_REPOS_NAME);
+
         ReposPagerFragment reposPagerFragment = (ReposPagerFragment) getSupportFragmentManager().findFragmentById(R.id.container);
         if (reposPagerFragment == null) {
             reposPagerFragment = ReposPagerFragment.newInstance(mLogin, mReposName);
