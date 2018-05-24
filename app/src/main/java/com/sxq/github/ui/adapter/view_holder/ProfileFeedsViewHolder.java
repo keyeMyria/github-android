@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import com.sxq.github.R;
 import com.sxq.github.ui.widgets.AvatarLayout;
 import com.sxq.github.ui.widgets.FontTextView;
+import com.sxq.github.ui.widgets.ForegroundRelativeLayout;
 import com.sxq.github.ui.widgets.SpannableBuilder;
 import com.sxq.github.ui.widgets.adapter.BaseRecyclerAdapter;
 import com.sxq.github.ui.widgets.recyclerview.view_holder.BaseViewHolder;
@@ -39,6 +40,14 @@ public class ProfileFeedsViewHolder extends BaseViewHolder<GetProfileFeedsQuery.
 
     @Override
     public void bind(@NonNull GetProfileFeedsQuery.Node node) {
+        if (node.refs().edges().isEmpty()) {
+            /**
+             * try to fix commit list empty exception
+             *
+             * todo: don't pass null commit model into adapter
+             */
+            return;
+        }
         GetProfileFeedsQuery.Node1 commitNode = node.refs().edges().get(0).node();
         GetProfileFeedsQuery.Author author = commitNode.target().asCommit().author();
         String avatarUrl;
