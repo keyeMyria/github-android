@@ -46,4 +46,14 @@
     <string name="forked" translatable="false">Forked</string>
     <string name="private_repo">Private</string>
 
+    <string name="file">File</string>
+    <string name="file_menu">File menu</string>
+
+
+    <string name="tree_type_file">file</string>
+    <string name="tree_type_dir">dir</string>
+    <string name="tree_type_blob">blob</string>
+    <string name="tree_type_tree">tree</string>
+    <string name="tree_type_symlink">symlink</string>
+
 </resources>

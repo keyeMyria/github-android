@@ -55,7 +55,7 @@ public class FragmentPagerAdapterModel {
 
     public static List<FragmentPagerAdapterModel> buildForRepository(@NonNull Context context, @NonNull String login, @NonNull String reposName) {
         return Stream.of(
-                new FragmentPagerAdapterModel(context.getString(R.string.files), ReposFilesFragment.newInstance()),
+                new FragmentPagerAdapterModel(context.getString(R.string.files), ReposFilesFragment.newInstance(login, reposName)),
                 new FragmentPagerAdapterModel(context.getString(R.string.commits), ReposCommitFragment.newInstance(login, reposName)),
                 new FragmentPagerAdapterModel(context.getString(R.string.releases), ReposReleasesFragment.newInstance()),
                 new FragmentPagerAdapterModel(context.getString(R.string.contributors), ReposContributorsFragment.newInstance(login, reposName)))

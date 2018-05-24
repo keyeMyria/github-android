@@ -10,6 +10,7 @@ import java.util.List;
 import github.repos.GetBranchesQuery;
 import github.repos.GetCommitsQuery;
 import github.repos.GetContributorsQuery;
+import github.repos.GetCurrentLevelTreeViewQuery;
 import io.reactivex.Observable;
 
 public class ReposLocalDataSource implements ReposDataSource {
@@ -51,5 +52,8 @@ public class ReposLocalDataSource implements ReposDataSource {
         return null;
     }
 
-
+    @Override
+    public Observable<List<GetCurrentLevelTreeViewQuery.Entry>> getReposFiles(@NonNull String owner, @NonNull String reposName, @NonNull String branch, @NonNull String path) {
+        return null;
+    }
 }

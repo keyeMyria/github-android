@@ -1,5 +1,4 @@
 package com.sxq.github;
-
 import android.os.Bundle;
 
 import com.sxq.github.data.model.login.Login;
@@ -23,7 +22,8 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        ReposActivity.startActivity(this, Login.getCurrentUser().getLogin(), "s-xq");
-//        ReposActivity.startActivity(this, Login.getCurrentUser().getLogin(), "RxJava");
-        UserActivity.startActivity(this, Login.getCurrentUser().getLogin());
+        ReposActivity.startActivity(this, "s-xq", "github-android");
+        UserActivity.startActivity(this, "JakeWharton");
+        UserActivity.startActivity(this, "s-xq");
     }
 }

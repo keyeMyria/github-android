@@ -56,25 +56,31 @@ query getCommits($owner: String!, $reposName: String!, $branch: String!, $pageCu
 }
 
 
-
-# get only root file
-query getOnlyRootFile {
-  repository(owner: "s-xq", name: "github-android") {
-    defaultBranchRef {
-      target {
-        ... on Commit {
-          tree {
-            entries {
-              name
-              mode
-              type
-            }
-          }
+###
+# get repos file tree view
+# example:
+# {
+#   "owner": "s-xq",
+#   "reposName": "github-android",
+#   "expression": "master:app/src/main/java/com/sxq/github/"
+# }
+query getCurrentLevelTreeView($owner: String!, $reposName: String!, $expression: String!) {
+  repository(owner: $owner, name: $reposName) {
+    object(expression: $expression) {
+      ... on Blob {
+        byteSize
+      }
+      ... on Tree {
+        entries {
+          name
+          mode
+          type
         }
       }
     }
   }
 }
+
 
 
 query getFileContent($owner: String!, $reposName: String!, $expression: String!) {

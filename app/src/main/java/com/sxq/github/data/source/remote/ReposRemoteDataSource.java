@@ -13,6 +13,7 @@ import java.util.List;
 import github.repos.GetBranchesQuery;
 import github.repos.GetCommitsQuery;
 import github.repos.GetContributorsQuery;
+import github.repos.GetCurrentLevelTreeViewQuery;
 import github.repos.GetFileContentQuery;
 import io.reactivex.Observable;
 
@@ -92,5 +93,19 @@ public class ReposRemoteDataSource implements ReposDataSource {
         return Rx2Apollo.from(apolloCall)
                 .filter(dataResponse -> !dataResponse.hasErrors())
                 .map(dataResponse -> dataResponse.data());
+    }
+
+    @Override
+    public Observable<List<GetCurrentLevelTreeViewQuery.Entry>> getReposFiles(@NonNull String owner, @NonNull String reposName, @NonNull String branch, @NonNull String path) {
+        ApolloCall<GetCurrentLevelTreeViewQuery.Data> apolloCall = ApolloProvider.getApolloInstance()
+                .query(GetCurrentLevelTreeViewQuery.builder()
+                        .owner(owner)
+                        .reposName(reposName)
+                        .expression(String.format("%s:%s", branch, path == null ? "" : path))
+                        .build());
+        return Rx2Apollo.from(apolloCall)
+                .filter(dataResponse -> !dataResponse.hasErrors())
+                .map(dataResponse -> dataResponse.data().repository().object().asTree().entries());
+
     }
 }

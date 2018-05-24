@@ -11,6 +11,7 @@ import java.util.List;
 import github.repos.GetBranchesQuery;
 import github.repos.GetCommitsQuery;
 import github.repos.GetContributorsQuery;
+import github.repos.GetCurrentLevelTreeViewQuery;
 import io.reactivex.Observable;
 
 public class ReposSourceRepository implements ReposDataSource {
@@ -57,5 +58,10 @@ public class ReposSourceRepository implements ReposDataSource {
     @Override
     public Observable<GetContributorsQuery.Data> getContributors(@NonNull String owner, @NonNull String reposName, @Nullable String pageCursor) {
         return mReposRemoteRepository.getContributors(owner, reposName, pageCursor);
+    }
+
+    @Override
+    public Observable<List<GetCurrentLevelTreeViewQuery.Entry>> getReposFiles(@NonNull String owner, @NonNull String reposName, @NonNull String branch, @NonNull String path) {
+        return mReposRemoteRepository.getReposFiles(owner, reposName, branch, path);
     }
 }

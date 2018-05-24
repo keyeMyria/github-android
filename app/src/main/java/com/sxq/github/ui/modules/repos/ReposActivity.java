@@ -57,4 +57,9 @@ public class ReposActivity extends BaseActivity {
             ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), reposPagerFragment, R.id.container);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }
