@@ -1,24 +1,38 @@
 
 # 获取关注的repository的最新commit
 # link: https://platform.github.community/t/how-to-query-for-all-commits-visible-to-a-user/1482
-query getRecentVisibleCommits($login: String!) {
+query getProfileFeeds($login: String!, $pageCursor: String) {
   user(login: $login) {
-    repositories(affiliations: [OWNER, ORGANIZATION_MEMBER, COLLABORATOR], last: 10) {
+    repositories(affiliations: [OWNER], first: 15, orderBy: {field: UPDATED_AT, direction: DESC}, after: $pageCursor) {
       edges {
-        node {
-          name
-          refs(last: 1, refPrefix: "refs/heads/") {
-            edges {
-              node {
-                id
-                name
-                target {
-                  ... on Commit {
-                    id
-                    url
-                    messageHeadline
-                    author {
+        cursor
+      }
+      nodes {
+        refs(refPrefix: "refs/heads/", first: 1, orderBy: {field: TAG_COMMIT_DATE, direction: DESC}) {
+          edges {
+            node {
+              id
+              name
+              target {
+                ... on Commit {
+                  id
+                  oid
+                  repository {
+                    name
+                    nameWithOwner
+
+                  }
+                  url
+                  pushedDate
+                  committedDate
+                  messageHeadline
+                  message
+                  author {
+                    name
+                    user {
+                      login
                       name
+                      avatarUrl
                     }
                   }
                 }
@@ -30,3 +44,5 @@ query getRecentVisibleCommits($login: String!) {
     }
   }
 }
+
+
