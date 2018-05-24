@@ -28,3 +28,37 @@ query getOwnedRepos($login: String!, $pageCursor: String) {
     }
   }
 }
+
+
+
+
+query getStarredRepos($login: String!, $pageCursor: String) {
+  user(login: $login) {
+    starredRepositories(first: 15, after: $pageCursor) {
+      edges {
+        cursor
+      }
+      nodes {
+        name
+        nameWithOwner
+        isFork
+        viewerHasStarred
+        isPrivate
+        stargazers {
+          totalCount
+        }
+        forks {
+          totalCount
+        }
+        updatedAt
+        languages(orderBy: {field: SIZE, direction: DESC}, first: 1) {
+          nodes {
+            name
+            color
+          }
+        }
+        diskUsage
+      }
+    }
+  }
+}

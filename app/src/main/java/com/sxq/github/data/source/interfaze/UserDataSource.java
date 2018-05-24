@@ -11,6 +11,7 @@ import github.profile.GetFollowingQuery;
 import github.profile.GetOrganizationsQuery;
 import github.profile.GetOwnedReposQuery;
 import github.profile.GetPinnedReposQuery;
+import github.profile.GetStarredReposQuery;
 import github.user.GetProfileFeedsQuery;
 import io.reactivex.Observable;
 
@@ -31,5 +32,8 @@ public interface UserDataSource {
     Observable<GetOwnedReposQuery.Data> getOwnedRepos(@NonNull String login, @Nullable String pageCursor);
 
     Observable<GetProfileFeedsQuery.Data> getFeeds(@NonNull String login, @Nullable String pageCursor);
+
+    Observable<GetStarredReposQuery.Data> getStarredRepos(@NonNull String login, @Nullable String pageCursor);
+
 
 }

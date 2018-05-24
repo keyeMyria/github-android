@@ -12,6 +12,7 @@ import github.profile.GetFollowingQuery;
 import github.profile.GetOrganizationsQuery;
 import github.profile.GetOwnedReposQuery;
 import github.profile.GetPinnedReposQuery;
+import github.profile.GetStarredReposQuery;
 import github.user.GetProfileFeedsQuery;
 import io.reactivex.Observable;
 
@@ -67,6 +68,11 @@ public class UserLocalDataSource implements UserDataSource {
 
     @Override
     public Observable<GetProfileFeedsQuery.Data> getFeeds(@NonNull String login, @Nullable String pageCursor) {
+        return null;
+    }
+
+    @Override
+    public Observable<GetStarredReposQuery.Data> getStarredRepos(@NonNull String login, @Nullable String pageCursor) {
         return null;
     }
 }
