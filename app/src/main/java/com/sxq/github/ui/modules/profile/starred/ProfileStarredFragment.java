@@ -118,9 +118,9 @@ public class ProfileStarredFragment extends BaseFragment {
         mProfileReposAdapter.setListener(new BaseViewHolder.OnItemClickListener<GetStarredReposQuery.Node>() {
             @Override
             public void onItemClick(int position, View v, GetStarredReposQuery.Node item) {
-                /**
-                 * TODO jump to {@link com.sxq.github.ui.modules.user.UserActivity}
-                 */
+                mProfileStarredViewModel.getProfileStarredNavigator().navigateToReposActivity(getActivity(), mLogin, item.name());
+
+
             }
 
             @Override

@@ -125,9 +125,7 @@ public class ReposContributorsFragment extends BaseFragment {
         mReposContributorsAdapter.setListener(new BaseViewHolder.OnItemClickListener<GetContributorsQuery.Node>() {
             @Override
             public void onItemClick(int position, View v, GetContributorsQuery.Node item) {
-                /**
-                 * TODO jump to {@link com.sxq.github.ui.modules.user.UserActivity}
-                 */
+                mReposContributorsViewModel.getReposContributorsNavigator().navigateToUserActivity(getActivity(), item.login());
             }
 
             @Override

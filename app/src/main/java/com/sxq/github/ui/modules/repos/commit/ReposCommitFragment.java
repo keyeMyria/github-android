@@ -146,9 +146,7 @@ public class ReposCommitFragment extends BaseFragment {
         mReposCommitAdapter.setListener(new BaseViewHolder.OnItemClickListener<GetCommitsQuery.Edge>() {
             @Override
             public void onItemClick(int position, View v, GetCommitsQuery.Edge item) {
-                /**
-                 * TODO Jump to commit detail
-                 */
+                mReposCommitViewModel.getReposCommitNavigator().navigateToUserActivity(getActivity(), mLogin);
             }
 
             @Override

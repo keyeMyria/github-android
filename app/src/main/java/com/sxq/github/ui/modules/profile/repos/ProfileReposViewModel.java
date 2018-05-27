@@ -35,4 +35,9 @@ public class ProfileReposViewModel {
         return mUserSourceRepository.getOwnedRepos(mLogin, lastPageCursor)
                 .map(data -> new ProfileReposUiModel(data));
     }
+
+    @NonNull
+    public ProfileReposNavigator getProfileReposNavigator() {
+        return mProfileReposNavigator;
+    }
 }

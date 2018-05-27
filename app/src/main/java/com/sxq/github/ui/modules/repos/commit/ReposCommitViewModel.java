@@ -52,4 +52,9 @@ public class ReposCommitViewModel {
         return mReposSourceRepository.getCommits(mLogin, mReposName, mBranch, lastPageCursor)
                 .map(data -> new ReposCommitUiModel(data));
     }
+
+    @NonNull
+    public ReposCommitNavigator getReposCommitNavigator() {
+        return mReposCommitNavigator;
+    }
 }

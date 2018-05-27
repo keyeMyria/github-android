@@ -22,7 +22,7 @@ public class ProfileFollowingAdapter extends BaseRecyclerAdapter<
 
     @Override
     protected ProfileFollowingViewHolder viewHolder(ViewGroup parent, int viewType) {
-        return ProfileFollowingViewHolder.newInstance(parent);
+        return ProfileFollowingViewHolder.newInstance(parent, this);
     }
 
     @Override

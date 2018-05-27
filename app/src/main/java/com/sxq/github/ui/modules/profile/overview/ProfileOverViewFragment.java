@@ -297,11 +297,7 @@ public class ProfileOverViewFragment extends BaseFragment {
             mProfilePinnedReposAdapter.setListener(new BaseViewHolder.OnItemClickListener<GetPinnedReposQuery.Node>() {
                 @Override
                 public void onItemClick(int position, View v, GetPinnedReposQuery.Node item) {
-                    /**
-                     * TODO to launch the url
-                     *
-                     * {@link GetPinnedReposQuery.Node#url()}
-                     */
+                    mViewModel.getProfileOverViewNavigator().navigateToReposActivity(getActivity(), mLogin,item.name());
                 }
 
                 @Override

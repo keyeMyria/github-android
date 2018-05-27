@@ -120,9 +120,8 @@ public class ProfileFeedsFragment extends BaseFragment {
         mProfileFeedsAdapter.setListener(new BaseViewHolder.OnItemClickListener<GetProfileFeedsQuery.Node>() {
             @Override
             public void onItemClick(int position, View v, GetProfileFeedsQuery.Node item) {
-                /**
-                 * TODO jump to Commit details
-                 */
+                mProfileFeedsViewModel.getProfileFeedsNavigator().navigateToReposActivity(getActivity(),
+                        mLogin, item.refs().edges().get(0).node().target().asCommit().repository().name());
             }
 
             @Override

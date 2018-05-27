@@ -35,4 +35,9 @@ public class ProfileStarredViewModel {
         return mUserSourceRepository.getStarredRepos(mLogin, lastPageCursor)
                 .map(data -> new ProfileStarredUiModel(data));
     }
+
+    @NonNull
+    public ProfileStarredNavigator getProfileStarredNavigator() {
+        return mProfileStarredNavigator;
+    }
 }

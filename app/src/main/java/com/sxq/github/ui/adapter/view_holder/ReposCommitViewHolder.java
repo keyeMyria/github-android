@@ -8,6 +8,7 @@ import com.sxq.github.R;
 import com.sxq.github.ui.widgets.AvatarLayout;
 import com.sxq.github.ui.widgets.FontTextView;
 import com.sxq.github.ui.widgets.SpannableBuilder;
+import com.sxq.github.ui.widgets.adapter.BaseRecyclerAdapter;
 import com.sxq.github.ui.widgets.recyclerview.view_holder.BaseViewHolder;
 import com.sxq.github.utils.ParseDateFormat;
 
@@ -27,12 +28,12 @@ public class ReposCommitViewHolder extends BaseViewHolder<GetCommitsQuery.Edge> 
     @BindView(R.id.commentsNo)
     FontTextView mCommentsNo;
 
-    public static ReposCommitViewHolder newInstance(@NonNull ViewGroup parent) {
-        return new ReposCommitViewHolder(getView(parent, R.layout.issue_row_item));
+    public static ReposCommitViewHolder newInstance(@NonNull ViewGroup parent, BaseRecyclerAdapter adapter) {
+        return new ReposCommitViewHolder(getView(parent, R.layout.issue_row_item), adapter);
     }
 
-    private ReposCommitViewHolder(View itemView) {
-        super(itemView);
+    private ReposCommitViewHolder(View itemView, BaseRecyclerAdapter adapter) {
+        super(itemView, adapter);
     }
 
     @Override

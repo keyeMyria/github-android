@@ -35,4 +35,9 @@ public class ProfileFeedsViewModel {
         return mUserSourceRepository.getFeeds(mLogin, lastPageCursor)
                 .map(data -> new ProfileFeedsUiModel(data));
     }
+
+    @NonNull
+    public ProfileFeedsNavigator getProfileFeedsNavigator() {
+        return mProfileFeedsNavigator;
+    }
 }

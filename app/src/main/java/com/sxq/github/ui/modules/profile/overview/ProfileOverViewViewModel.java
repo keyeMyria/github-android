@@ -54,4 +54,9 @@ public class ProfileOverViewViewModel {
                     }
                 }).map(o -> (ProfileOverViewUiModel) o);
     }
+
+    @NonNull
+    public ProfileOverViewNavigator getProfileOverViewNavigator() {
+        return mProfileOverViewNavigator;
+    }
 }

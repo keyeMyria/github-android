@@ -21,6 +21,7 @@ import com.sxq.github.utils.ViewHelper;
 
 
 import butterknife.BindView;
+import timber.log.Timber;
 
 /**
  * Created by shixiaoqiang01 on 2018/5/19.

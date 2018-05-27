@@ -38,4 +38,9 @@ public class ProfileFollowingViewModel {
         return mUserSourceRepository.getFollowing(mLogin, lastPageCursor)
                 .map(data -> new ProfileFollowingUiModel(data));
     }
+
+    @NonNull
+    public ProfileFollowingNavigator getProfileFollowingNavigator() {
+        return mProfileFollowingNavigator;
+    }
 }

@@ -119,9 +119,7 @@ public class ProfileReposFragment extends BaseFragment {
         mProfileReposAdapter.setListener(new BaseViewHolder.OnItemClickListener<GetOwnedReposQuery.Node>() {
             @Override
             public void onItemClick(int position, View v, GetOwnedReposQuery.Node item) {
-                /**
-                 * TODO jump to {@link com.sxq.github.ui.modules.user.UserActivity}
-                 */
+                mProfileReposViewModel.getProfileReposNavigator().navigateToReposActivity(getActivity(), mLogin, item.name());
             }
 
             @Override

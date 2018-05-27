@@ -39,4 +39,9 @@ public class ReposContributorsViewModel {
         return mReposSourceRepository.getContributors(mLogin, mReposName, lastPageCursor)
                 .map(data -> new ReposContributorsUiModel(data));
     }
+
+    @NonNull
+    public ReposContributorsNavigator getReposContributorsNavigator() {
+        return mReposContributorsNavigator;
+    }
 }

@@ -23,7 +23,7 @@ public class ReposCommitAdapter extends BaseRecyclerAdapter<
 
     @Override
     protected ReposCommitViewHolder viewHolder(ViewGroup parent, int viewType) {
-        return ReposCommitViewHolder.newInstance(parent);
+        return ReposCommitViewHolder.newInstance(parent, this);
     }
 
     @Override

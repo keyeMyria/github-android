@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import com.sxq.github.R;
 import com.sxq.github.ui.widgets.AvatarLayout;
 import com.sxq.github.ui.widgets.FontTextView;
+import com.sxq.github.ui.widgets.adapter.BaseRecyclerAdapter;
 import com.sxq.github.ui.widgets.recyclerview.view_holder.BaseViewHolder;
 
 import butterknife.BindView;
@@ -21,12 +22,12 @@ public class ProfileFollowerViewHolder extends BaseViewHolder<GetFollowerQuery.N
     @BindView(R.id.date)
     FontTextView mDate;
 
-    public static ProfileFollowerViewHolder newInstance(@NonNull ViewGroup parent) {
-        return new ProfileFollowerViewHolder(getView(parent, R.layout.users_small_row_item));
+    public static ProfileFollowerViewHolder newInstance(@NonNull ViewGroup parent, BaseRecyclerAdapter adapter) {
+        return new ProfileFollowerViewHolder(getView(parent, R.layout.users_small_row_item), adapter);
     }
 
-    private ProfileFollowerViewHolder(View itemView) {
-        super(itemView);
+    private ProfileFollowerViewHolder(View itemView, BaseRecyclerAdapter adapter) {
+        super(itemView, adapter);
     }
 
     @Override

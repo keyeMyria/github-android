@@ -118,9 +118,7 @@ public class ProfileFollowerFragment extends BaseFragment {
         mProfileFollowerAdapter.setListener(new BaseViewHolder.OnItemClickListener<GetFollowerQuery.Node>() {
             @Override
             public void onItemClick(int position, View v, GetFollowerQuery.Node item) {
-                /**
-                 * TODO jump to {@link com.sxq.github.ui.modules.user.UserActivity}
-                 */
+                mProfileFollowerViewModel.getProfileFollowerNavigator().navigateToUserActivity(getActivity(), item.login());
             }
 
             @Override
