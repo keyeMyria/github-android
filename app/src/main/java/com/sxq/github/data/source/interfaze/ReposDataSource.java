@@ -9,6 +9,7 @@ import github.repos.GetBranchesQuery;
 import github.repos.GetCommitsQuery;
 import github.repos.GetContributorsQuery;
 import github.repos.GetCurrentLevelTreeViewQuery;
+import github.repos.GetReleasesQuery;
 import io.reactivex.Observable;
 
 public interface ReposDataSource {
@@ -22,4 +23,6 @@ public interface ReposDataSource {
     Observable<GetContributorsQuery.Data> getContributors(@NonNull String owner, @NonNull String reposName, @Nullable String pageCursor);
 
     Observable<List<GetCurrentLevelTreeViewQuery.Entry>> getReposFiles(@NonNull String owner, @NonNull String reposName, @NonNull String branch, @NonNull String path);
+
+    Observable<GetReleasesQuery.Data> getReleases(@NonNull String owner, @NonNull String reposName, @Nullable String pageCursor);
 }

@@ -12,6 +12,7 @@ import github.repos.GetBranchesQuery;
 import github.repos.GetCommitsQuery;
 import github.repos.GetContributorsQuery;
 import github.repos.GetCurrentLevelTreeViewQuery;
+import github.repos.GetReleasesQuery;
 import io.reactivex.Observable;
 
 public class ReposSourceRepository implements ReposDataSource {
@@ -63,5 +64,10 @@ public class ReposSourceRepository implements ReposDataSource {
     @Override
     public Observable<List<GetCurrentLevelTreeViewQuery.Entry>> getReposFiles(@NonNull String owner, @NonNull String reposName, @NonNull String branch, @NonNull String path) {
         return mReposRemoteRepository.getReposFiles(owner, reposName, branch, path);
+    }
+
+    @Override
+    public Observable<GetReleasesQuery.Data> getReleases(@NonNull String owner, @NonNull String reposName, @Nullable String pageCursor) {
+        return mReposRemoteRepository.getReleases(owner, reposName, pageCursor);
     }
 }

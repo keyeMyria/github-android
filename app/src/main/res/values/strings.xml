@@ -56,4 +56,7 @@
     <string name="tree_type_tree">tree</string>
     <string name="tree_type_symlink">symlink</string>
 
+    <string name="released">Released</string>
+    <string name="drafted">Drafted</string>
+
 </resources>

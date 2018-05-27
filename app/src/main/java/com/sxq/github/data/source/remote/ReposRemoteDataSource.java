@@ -15,6 +15,7 @@ import github.repos.GetCommitsQuery;
 import github.repos.GetContributorsQuery;
 import github.repos.GetCurrentLevelTreeViewQuery;
 import github.repos.GetFileContentQuery;
+import github.repos.GetReleasesQuery;
 import io.reactivex.Observable;
 
 public class ReposRemoteDataSource implements ReposDataSource {
@@ -106,6 +107,20 @@ public class ReposRemoteDataSource implements ReposDataSource {
         return Rx2Apollo.from(apolloCall)
                 .filter(dataResponse -> !dataResponse.hasErrors())
                 .map(dataResponse -> dataResponse.data().repository().object().asTree().entries());
+
+    }
+
+    @Override
+    public Observable<GetReleasesQuery.Data> getReleases(@NonNull String owner, @NonNull String reposName, @Nullable String pageCursor) {
+        ApolloCall<GetReleasesQuery.Data> apolloCall = ApolloProvider.getApolloInstance()
+                .query(GetReleasesQuery.builder()
+                        .owner(owner)
+                        .reposName(reposName)
+                        .pageCursor(pageCursor)
+                        .build());
+        return Rx2Apollo.from(apolloCall)
+                .filter(dataResponse -> !dataResponse.hasErrors())
+                .map(dataResponse -> dataResponse.data());
 
     }
 }

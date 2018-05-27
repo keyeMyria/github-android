@@ -109,3 +109,29 @@ query getContributors($owner: String!, $reposName: String!, $pageCursor: String)
     }
   }
 }
+
+
+query getReleases($owner: String!, $reposName: String!, $pageCursor: String) {
+  repository(owner: $owner, name: $reposName) {
+    releases(first: 15, after: $pageCursor) {
+      totalCount
+      edges {
+        cursor
+      }
+      nodes {
+        author {
+          login
+          name
+          avatarUrl
+        }
+        createdAt
+        name
+        publishedAt
+        isDraft
+        resourcePath
+        url
+        description
+      }
+    }
+  }
+}
