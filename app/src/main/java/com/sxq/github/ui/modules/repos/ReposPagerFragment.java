@@ -11,10 +11,12 @@ import com.sxq.github.R;
 import com.sxq.github.data.model.FragmentPagerAdapterModel;
 import com.sxq.github.ui.adapter.FragmentPagerAdapter;
 import com.sxq.github.ui.base.BaseFragment;
+import com.sxq.github.ui.modules.repos.commit.ReposCommitFragment;
+import com.sxq.github.ui.modules.repos.files.ReposFilesFragment;
 
 import butterknife.BindView;
 
-public class ReposPagerFragment extends BaseFragment {
+public class ReposPagerFragment extends BaseFragment implements ReposActivity.BackHandlerInterface {
 
     public static String TAG_LOGIN = "tag_login";
     public static String TAG_REPOS_NAME = "tag_repos_name";
@@ -23,6 +25,9 @@ public class ReposPagerFragment extends BaseFragment {
     TabLayout mTabs;
     @BindView(R.id.pager)
     ViewPager mViewPager;
+
+    @NonNull
+    FragmentPagerAdapter fragmentPagerAdapter;
 
     @NonNull
     private String mLogin;
@@ -52,7 +57,7 @@ public class ReposPagerFragment extends BaseFragment {
 
         onRestoreData(savedInstanceState);
 
-        FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getFragmentManager(),
+        fragmentPagerAdapter = new FragmentPagerAdapter(getFragmentManager(),
                 FragmentPagerAdapterModel.buildForRepository(getContext(), mLogin, mReposName));
         mViewPager.setAdapter(fragmentPagerAdapter);
         mViewPager.setOffscreenPageLimit(4);
@@ -84,6 +89,14 @@ public class ReposPagerFragment extends BaseFragment {
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public boolean onBackPressed() {
+        if (mViewPager.getCurrentItem() == 0 && fragmentPagerAdapter.getItem(0) instanceof ReposFilesFragment) {
+            ReposFilesFragment filesFragment = (ReposFilesFragment) fragmentPagerAdapter.getItem(0);
+            return filesFragment.back();
+        }
+        return false;
+    }
 
     private void onRestoreData(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {

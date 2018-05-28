@@ -164,11 +164,18 @@ public class ReposFilesFragment extends BaseFragment {
         bindViewModel();
     }
 
-    public void back() {
+    /**
+     * try to back to last directory
+     *
+     * @return success in back
+     */
+    public boolean back() {
         if (mPathList.size() > 0) {
             mPathList.remove(mPathList.size() - 1);
             bindViewModel();
+            return true;
         }
+        return false;
     }
 
     private String formatToPath() {

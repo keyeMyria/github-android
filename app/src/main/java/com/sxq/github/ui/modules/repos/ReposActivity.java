@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 
 import com.sxq.github.R;
 import com.sxq.github.ui.base.BaseActivity;
+import com.sxq.github.ui.modules.repos.files.ReposFilesFragment;
 import com.sxq.github.utils.ActivityUtil;
 
 import static com.sxq.github.ui.modules.repos.ReposPagerFragment.TAG_LOGIN;
@@ -24,6 +25,15 @@ public class ReposActivity extends BaseActivity {
 
     @NonNull
     private String mReposName;
+
+    private BackHandlerInterface mBackHandlerInterface;
+
+    public interface BackHandlerInterface {
+        /**
+         * @return has the event been consumed
+         */
+        boolean onBackPressed();
+    }
 
     @Override
     protected int activityLayout() {
@@ -56,10 +66,18 @@ public class ReposActivity extends BaseActivity {
             reposPagerFragment = ReposPagerFragment.newInstance(mLogin, mReposName);
             ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), reposPagerFragment, R.id.container);
         }
+        setBackHandlerInterface(reposPagerFragment);
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (mBackHandlerInterface == null || !mBackHandlerInterface.onBackPressed()) {
+            super.onBackPressed();
+        }
+    }
+
+
+    public void setBackHandlerInterface(BackHandlerInterface backHandlerInterface) {
+        mBackHandlerInterface = backHandlerInterface;
     }
 }
