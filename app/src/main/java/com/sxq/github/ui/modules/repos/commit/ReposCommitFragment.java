@@ -146,7 +146,8 @@ public class ReposCommitFragment extends BaseFragment {
         mReposCommitAdapter.setListener(new BaseViewHolder.OnItemClickListener<GetCommitsQuery.Edge>() {
             @Override
             public void onItemClick(int position, View v, GetCommitsQuery.Edge item) {
-                mReposCommitViewModel.getReposCommitNavigator().navigateToUserActivity(getActivity(), mLogin);
+                if (!InputHelper.isEmpty(item.node().author()) && !InputHelper.isEmpty(item.node().author().user()))
+                    mReposCommitViewModel.getReposCommitNavigator().navigateToUserActivity(getActivity(), item.node().author().user().login());
             }
 
             @Override

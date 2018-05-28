@@ -45,6 +45,10 @@ query getCommits($owner: String!, $reposName: String!, $branch: String!, $pageCu
                   email
                   date
                   avatarUrl
+                  user {
+                    login
+                    name
+                  }
                 }
               }
             }
