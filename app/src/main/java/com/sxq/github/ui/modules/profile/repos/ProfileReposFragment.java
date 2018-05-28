@@ -74,17 +74,22 @@ public class ProfileReposFragment extends BaseFragment {
 
         mProfileReposViewModel = ProfileReposModule.createViewModel(mLogin);
         mCompositeDisposable = new CompositeDisposable();
+        bindViewModel();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        bindViewModel();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
         unBindViewModel();
     }
 

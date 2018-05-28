@@ -22,9 +22,10 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        ReposActivity.startActivity(this, Login.getCurrentUser().getLogin(), "s-xq");
-        ReposActivity.startActivity(this, "s-xq", "github-android");
+//        ReposActivity.startActivity(this, "s-xq", "github-android");
 //        ReposActivity.startActivity(this, "JakeWharton", "Retrofit");
-        UserActivity.startActivity(this, "JakeWharton");
+//        UserActivity.startActivity(this, "JakeWharton");
         UserActivity.startActivity(this, "s-xq");
+        finish();
     }
 }

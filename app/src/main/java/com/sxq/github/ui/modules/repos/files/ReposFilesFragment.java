@@ -81,17 +81,23 @@ public class ReposFilesFragment extends BaseFragment {
         }
         mReposFilesViewModel = ReposFilesModule.createViewModel(mLogin, mReposName, mBranch);
         mCompositeDisposable = new CompositeDisposable();
+        bindViewModel();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        bindViewModel();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
         unBindViewModel();
     }
 

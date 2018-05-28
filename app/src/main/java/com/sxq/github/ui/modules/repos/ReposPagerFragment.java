@@ -55,6 +55,7 @@ public class ReposPagerFragment extends BaseFragment {
         FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getFragmentManager(),
                 FragmentPagerAdapterModel.buildForRepository(getContext(), mLogin, mReposName));
         mViewPager.setAdapter(fragmentPagerAdapter);
+        mViewPager.setOffscreenPageLimit(4);
         mTabs.setTabGravity(TabLayout.GRAVITY_FILL);
         mTabs.setTabMode(TabLayout.MODE_SCROLLABLE);
         mTabs.setupWithViewPager(mViewPager);

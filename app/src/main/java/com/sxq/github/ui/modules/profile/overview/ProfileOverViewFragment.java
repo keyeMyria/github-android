@@ -156,20 +156,24 @@ public class ProfileOverViewFragment extends BaseFragment {
 
         mCompositeDisposable = new CompositeDisposable();
         mViewModel = ProfileOverViewModule.createViewModel(mLogin);
+        bindViewModel();
     }
 
     @Override
     public void onResume() {
-        bindViewModel();
         super.onResume();
     }
 
     @Override
     public void onPause() {
-        unBindViewModel();
         super.onPause();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unBindViewModel();
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
