@@ -14,6 +14,7 @@
     <color name="material_indigo_700">#303F9F</color>
     <color name="material_grey_700">#616161</color>
     <color name="material_amber_800">#FF8F00</color>
+    <color name="material_indigo_900">#1A237E</color>
 
 
 </resources>
